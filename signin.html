@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Starbucks Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .signin-container {
+            display: flex;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .signin-left {
+            flex: 1;
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .signin-right {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #f9f9f9;
+        }
+        
+        .signin-form {
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .forgot-password {
+            color: #00754a;
+            text-decoration: none;
+        }
+        
+        .social-login {
+            margin-top: 30px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .divider:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .divider span {
+            background-color: #f9f9f9;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            color: #666;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .benefits-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00754a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Starbucks">
+                </a>
+            </div>
+            <ul class="navbar-nav-left">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="giftcards.html">Gift Cards</a></li>
+            </ul>
+            <ul class="navbar-nav-right">
+                <li><a href="findastore.html"><i class="fas fa-map-marker-alt"></i> Find a store</a></li>
+                <li><button class="btn btn-dark-outline" onclick="window.location.href='signin.html'" style="background-color: #00754a; color: white;">Sign in</button></li>
+                <li><button class="btn btn-dark" onclick="window.location.href='signin.html'">Join now</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="signin-container">
+        <div class="signin-left">
+            <h1 style="font-size: 36px; margin-bottom: 30px;">Join Starbucks Rewards</h1>
+            <p style="font-size: 18px; margin-bottom: 20px;">Join Starbucks Rewards to earn Stars for free food and drinks, get free refills, pay and order with your phone, and more.</p>
+            
+            <ul class="benefits-list">
+                <li>Earn Stars for free drinks and food</li>
+                <li>Get free refills on brewed coffee and tea</li>
+                <li>Order and pay ahead with the app</li>
+                <li>Pay in 1-2 seconds with the app</li>
+                <li>Get birthday rewards</li>
+                <li>Get personalized offers</li>
+            </ul>
+            
+            <button class="btn btn-light" style="background-color: white; color: #1e3932; margin-top: 30px;">Learn more about Rewards</button>
+        </div>
+        
+        <div class="signin-right">
+            <div class="signin-form">
+                <h2 style="margin-bottom: 30px;">Sign In or Create an Account</h2>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username or email address</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-light" style="width: 100%;">Sign In</button>
+                </form>
+                
+                <div class="divider">
+                    <span>or sign in with</span>
+                </div>
+                
+                <div class="social-login">
+                    <div class="social-buttons">
+                        <button class="social-btn">
+                            <i class="fab fa-google" style="color: #DB4437;"></i>
+                            Google
+                        </button>
+                        <button class="social-btn">
+                            <i class="fab fa-facebook-f" style="color: #4267B2;"></i>
+                            Facebook
+                        </button>
+                        <button class="social-btn">
+                            <i class="fab fa-apple"></i>
+                            Apple
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="#" style="color: #00754a;">Join now</a></p>
+                </div>
+                
+                <div style="margin-top: 40px; font-size: 12px; color: #666; text-align: center;">
+                    <p>By signing in or creating an account, you agree with our <a href="#" style="color: #00754a;">Terms & Conditions</a> and <a href="#" style="color: #00754a;">Privacy Statement</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Our Company</a></li>
+                    <li><a href="#">Our Coffee</a></li>
+                    <li><a href="#">Stories and News</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Careers</h4>
+                <ul>
+                    <li><a href="#">Culture and Values</a></li>
+                    <li><a href="#">Opportunities</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Social Impact</h4>
+                <ul>
+                    <li><a href="#">People</a></li>
+                    <li><a href="#">Planet</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Starbucks Clone. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Login form handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if(username && password) {
+                alert('Sign in successful! Welcome back.');
+                // In a real app, you would send this to a server
+                window.location.href = 'rewards.html';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+        
+        // Social login buttons
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const provider = this.textContent.trim();
+                alert('Sign in with ' + provider + ' selected');
+                // Here you would integrate with OAuth providers
+            });
+        });
+    </script>
+</body>
+</html>

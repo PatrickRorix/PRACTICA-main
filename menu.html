@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Starbucks Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Menu specific styles */
+        .menu-hero {
+            background-color: #1e3932;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active {
+            background-color: #00754a;
+            color: white;
+            border-color: #00754a;
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .menu-item-image {
+            height: 200px;
+            overflow: hidden;
+            background-color: #f2f0eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .item-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e3932;
+        }
+        
+        .item-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00754a;
+        }
+        
+        .item-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .item-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .item-tag {
+            background-color: #f2f0eb;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .size-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .size-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .size-option.selected {
+            border-color: #00754a;
+            background-color: #f0f9f5;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #00754a;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #005c3c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .add-to-cart-btn.added {
+            background-color: #4CAF50;
+        }
+        
+        .cart-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00754a;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .cart-floating:hover {
+            transform: scale(1.1);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4444;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .quick-view-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-summary {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            width: 350px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: none;
+            z-index: 999;
+            padding: 20px;
+        }
+        
+        .cart-summary.show {
+            display: block;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-name {
+            flex: 2;
+            font-size: 14px;
+        }
+        
+        .cart-item-price {
+            flex: 1;
+            text-align: right;
+            color: #00754a;
+            font-weight: bold;
+        }
+        
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .promo-code {
+            margin-bottom: 20px;
+        }
+        
+        .promo-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .menu-filters {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .sort-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        /* Loading indicator */
+        .loading-indicator {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .loading-indicator i {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #00754a;
+        }
+        
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        /* Item counter */
+        .item-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .counter-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .counter-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <!-- Placeholder pentru logo -->
+                    <div style="font-size: 24px; font-weight: bold; color: #00754a;">STARBUCKS</div>
+                </a>
+            </div>
+            <ul class="navbar-nav-left">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" style="color:#00754a;">Menu</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="giftcards.html">Gift Cards</a></li>
+            </ul>
+            <ul class="navbar-nav-right">
+                <li><a href="findastore.html"><i class="fas fa-map-marker-alt"></i> Find a store</a></li>
+                <li><button class="btn btn-dark-outline" onclick="window.location.href='signin.html'">Sign in</button></li>
+                <li><button class="btn btn-dark" onclick="window.location.href='signin.html'">Join now</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="menu-hero">
+        <h1>Our Menu</h1>
+        <p>Discover our delicious drinks and food items</p>
+    </section>
+
+    <div class="menu-container">
+        <div class="menu-categories" id="categories">
+            <button class="category-btn active" data-category="all">All Items</button>
+            <button class="category-btn" data-category="hot">Hot Drinks</button>
+            <button class="category-btn" data-category="cold">Cold Drinks</button>
+            <button class="category-btn" data-category="food">Food</button>
+            <button class="category-btn" data-category="seasonal">Seasonal</button>
+        </div>
+
+        <div class="menu-filters">
+            <div class="filter-group">
+                <label>Sort by:</label>
+                <select class="sort-select" id="sortSelect">
+                    <option value="popular">Most Popular</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <input type="checkbox" id="availableOnly" checked>
+                <label for="availableOnly">Available items only</label>
+            </div>
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+            <!-- Produsele vor fi încărcate aici de JavaScript -->
+            <div class="loading-indicator">
+                <i class="fas fa-coffee"></i>
+                <p>Loading menu...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="modal-content" id="modalContent">
+            <!-- Conținut încărcat de JavaScript -->
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <div class="cart-floating" id="floatingCart">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="cart-summary" id="cartSummary">
+        <h3>Your Cart</h3>
+        <div class="cart-items" id="cartItems">
+            <!-- Items will be loaded here -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">$0.00</span>
+        </div>
+        <div class="promo-code">
+            <input type="text" class="promo-input" placeholder="Enter promo code">
+            <button class="btn btn-dark-outline" style="width: 100%;">Apply</button>
+        </div>
+        <button class="btn btn-light" style="width: 100%;" onclick="goToCheckout()">Proceed to Checkout</button>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Our Company</a></li>
+                    <li><a href="#">Our Coffee</a></li>
+                    <li><a href="#">Stories and News</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Careers</h4>
+                <ul>
+                    <li><a href="#">Culture and Values</a></li>
+                    <li><a href="#">Opportunities</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Social Impact</h4>
+                <ul>
+                    <li><a href="#">People</a></li>
+                    <li><a href="#">Planet</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Starbucks Clone. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data - Produse cu imagini locale sau placeholder
+        const menuData = [
+            {
+                id: 1,
+                name: "Caramel Macchiato",
+                category: "hot",
+                price: 4.95,
+                image: "images/hot1.jpg",
+                icon: "fa-mug-hot",
+                description: "Freshly steamed milk with vanilla-flavored syrup, espresso and caramel drizzle.",
+                tags: ["Hot", "Coffee", "Sweet"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 3.95 },
+                    { name: "Grande", price: 4.95 },
+                    { name: "Venti", price: 5.45 }
+                ],
+                customizations: [
+                    { name: "Extra shot", price: 0.80 },
+                    { name: "Almond milk", price: 0.70 },
+                    { name: "Extra caramel", price: 0.50 }
+                ]
+            },
+            {
+                id: 2,
+                name: "Iced Coffee",
+                category: "cold",
+                price: 3.45,
+                image: "images/iced1.jpg",
+                icon: "fa-glass-water",
+                description: "Freshly brewed Starbucks coffee, chilled and served over ice.",
+                tags: ["Cold", "Coffee", "Refreshing"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 2.95 },
+                    { name: "Grande", price: 3.45 },
+                    { name: "Venti", price: 3.95 }
+                ],
+                customizations: [
+                    { name: "Sweetener", price: 0.00 },
+                    { name: "Extra ice", price: 0.00 },
+                    { name: "Light cream", price: 0.00 }
+                ]
+            },
+            {
+                id: 3,
+                name: "Chocolate Croissant",
+                category: "food",
+                price: 2.95,
+                image: "images/pastry.jpg",
+                icon: "fa-cookie-bite",
+                description: "Buttery, flaky croissant filled with rich chocolate.",
+                tags: ["Pastry", "Chocolate", "Breakfast"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Regular", price: 2.95 }
+                ],
+                customizations: [
+                    { name: "Warmed", price: 0.00 },
+                    { name: "Extra butter", price: 0.50 }
+                ]
+            },
+            {
+                id: 4,
+                name: "Cold Brew",
+                category: "cold",
+                price: 4.25,
+                image: "images/coldbrew.jpg",
+                icon: "fa-mug-saucer",
+                description: "Slow-steeped custom blend for a super-smooth flavor.",
+                tags: ["Cold", "Coffee", "Strong"],
+                popular: false,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 3.75 },
+                    { name: "Grande", price: 4.25 },
+                    { name: "Venti", price: 4.75 }
+                ],
+                customizations: [
+                    { name: "Vanilla syrup", price: 0.60 },
+                    { name: "Sweet cream", price: 0.70 },
+                    { name: "Cinnamon", price: 0.00 }
+                ]
+            },
+            {
+                id: 5,
+                name: "Caffe Latte",
+                category: "hot",
+                price: 4.25,
+                image: "images/hot2.jpg",
+                icon: "fa-coffee",
+                description: "Espresso with steamed milk and light layer of foam.",
+                tags: ["Hot", "Coffee", "Classic"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 3.75 },
+                    { name: "Grande", price: 4.25 },
+                    { name: "Venti", price: 4.75 }
+                ],
+                customizations: [
+                    { name: "Extra shot", price: 0.80 },
+                    { name: "Oat milk", price: 0.70 },
+                    { name: "Vanilla", price: 0.60 }
+                ]
+            },
+            {
+                id: 6,
+                name: "Seasonal Pumpkin Spice",
+                category: "seasonal",
+                price: 5.25,
+                image: "images/seasonal1.jpg",
+                icon: "fa-leaf",
+                description: "Limited time seasonal drink with pumpkin spice flavors.",
+                tags: ["Seasonal", "Pumpkin", "Special"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 4.75 },
+                    { name: "Grande", price: 5.25 },
+                    { name: "Venti", price: 5.75 }
+                ],
+                customizations: [
+                    { name: "Extra whip", price: 0.50 },
+                    { name: "Sprinkles", price: 0.30 }
+                ]
+            },
+            {
+                id: 7,
+                name: "Iced Tea Lemonade",
+                category: "cold",
+                price: 3.75,
+                image: "images/iced2.jpg",
+                icon: "fa-lemon",
+                description: "Iced tea combined with lemonade for a refreshing drink.",
+                tags: ["Cold", "Tea", "Refreshing"],
+                popular: false,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 3.25 },
+                    { name: "Grande", price: 3.75 },
+                    { name: "Venti", price: 4.25 }
+                ],
+                customizations: [
+                    { name: "Less sweet", price: 0.00 },
+                    { name: "Extra lemon", price: 0.30 }
+                ]
+            },
+            {
+                id: 8,
+                name: "Blueberry Muffin",
+                category: "food",
+                price: 2.75,
+                image: "images/bakery1.jpg",
+                icon: "fa-cake",
+                description: "Fresh blueberry muffin baked daily.",
+                tags: ["Bakery", "Muffin", "Breakfast"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Regular", price: 2.75 }
+                ],
+                customizations: [
+                    { name: "Warmed", price: 0.00 },
+                    { name: "Butter", price: 0.50 }
+                ]
+            },
+            {
+                id: 9,
+                name: "Holiday Peppermint Mocha",
+                category: "seasonal",
+                price: 5.95,
+                image: "images/seasonal2.jpg",
+                icon: "fa-candy-cane",
+                description: "Special holiday drink with peppermint and chocolate flavors.",
+                tags: ["Seasonal", "Holiday", "Chocolate"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 5.45 },
+                    { name: "Grande", price: 5.95 },
+                    { name: "Venti", price: 6.45 }
+                ],
+                customizations: [
+                    { name: "Nutmeg", price: 0.00 },
+                    { name: "Extra peppermint", price: 0.40 }
+                ]
+            },
+            {
+                id: 10,
+                name: "Espresso Shot",
+                category: "hot",
+                price: 2.25,
+                image: "images/coffee.jpg",
+                icon: "fa-fire",
+                description: "Rich, bold espresso shot.",
+                tags: ["Hot", "Coffee", "Strong"],
+                popular: false,
+                available: true,
+                sizes: [
+                    { name: "Single", price: 2.25 },
+                    { name: "Double", price: 3.25 },
+                    { name: "Triple", price: 4.25 }
+                ],
+                customizations: [
+                    { name: "Sugar", price: 0.00 },
+                    { name: "Cream", price: 0.50 }
+                ]
+            },
+            {
+                id: 11,
+                name: "Hot Chocolate",
+                category: "hot",
+                price: 3.75,
+                image: "",
+                icon: "fa-mug-hot",
+                description: "Creamy hot chocolate with whipped cream.",
+                tags: ["Hot", "Chocolate", "Sweet"],
+                popular: true,
+                available: true,
+                sizes: [
+                    { name: "Tall", price: 3.25 },
+                    { name: "Grande", price: 3.75 },
+                    { name: "Venti", price: 4.25 }
+                ],
+                customizations: [
+                    { name: "Extra marshmallows", price: 0.50 },
+                    { name: "Caramel drizzle", price: 0.60 }
+                ]
+            },
+            {
+                id: 12,
+                name: "Greek Yogurt Parfait",
+                category: "food",
+                price: 4.50,
+                image: "",
+                icon: "fa-bowl-food",
+                description: "Greek yogurt with granola and fresh berries.",
+                tags: ["Healthy", "Breakfast", "Yogurt"],
+                popular: false,
+                available: true,
+                sizes: [
+                    { name: "Regular", price: 4.50 }
+                ],
+                customizations: [
+                    { name: "Extra berries", price: 0.75 },
+                    { name: "Honey drizzle", price: 0.50 }
+                ]
+            }
+        ];
+
+        // Cart data
+        let cart = JSON.parse(localStorage.getItem('starbucksCart')) || [];
+        let currentCategory = 'all';
+        let currentSort = 'popular';
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMenu();
+            updateCartDisplay();
+            
+            // Category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    renderMenu();
+                });
+            });
+            
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                renderMenu();
+            });
+            
+            // Available filter
+            document.getElementById('availableOnly').addEventListener('change', function() {
+                renderMenu();
+            });
+            
+            // Floating cart button
+            document.getElementById('floatingCart').addEventListener('click', function() {
+                document.getElementById('cartSummary').classList.toggle('show');
+            });
+            
+            // Close cart when clicking outside
+            document.addEventListener('click', function(event) {
+                const cartSummary = document.getElementById('cartSummary');
+                const floatingCart = document.getElementById('floatingCart');
+                
+                if (cartSummary && !cartSummary.contains(event.target) && !floatingCart.contains(event.target)) {
+                    cartSummary.classList.remove('show');
+                }
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('quickViewModal').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+            
+            // Close modal with escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    document.getElementById('quickViewModal').style.display = 'none';
+                }
+            });
+        });
+
+        // Render menu items
+        function renderMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            let filteredItems = [...menuData];
+            
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filteredItems = filteredItems.filter(item => item.category === currentCategory);
+            }
+            
+            // Filter by availability
+            const availableOnly = document.getElementById('availableOnly').checked;
+            if (availableOnly) {
+                filteredItems = filteredItems.filter(item => item.available);
+            }
+            
+            // Sort items
+            filteredItems.sort((a, b) => {
+                switch(currentSort) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    default: // popular
+                        if (a.popular && !b.popular) return -1;
+                        if (!a.popular && b.popular) return 1;
+                        return 0;
+                }
+            });
+            
+            // Check if we have items
+            if (filteredItems.length === 0) {
+                menuGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-coffee"></i>
+                        <h3>No items found</h3>
+                        <p>Try changing your filters or check back later.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Render items
+            menuGrid.innerHTML = filteredItems.map(item => {
+                // Use icon if image is not available
+                const imageContent = item.image ? 
+                    `<img src="${item.image}" alt="${item.name}" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\"fas ${item.icon}\" style=\"font-size: 60px; color: #00754a;\"></i>';">` :
+                    `<i class="fas ${item.icon}" style="font-size: 60px; color: #00754a;"></i>`;
+                
+                return `
+                    <div class="menu-item" data-id="${item.id}">
+                        <div class="menu-item-image">
+                            ${imageContent}
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="item-header">
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">$${item.price.toFixed(2)}</div>
+                            </div>
+                            <div class="item-description">${item.description}</div>
+                            <div class="item-tags">
+                                ${item.tags.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
+                            </div>
+                            
+                            ${item.sizes.length > 1 ? `
+                                <div class="size-options">
+                                    ${item.sizes.map((size, index) => `
+                                        <div class="size-option ${index === 1 ? 'selected' : ''}" data-price="${size.price}">
+                                            ${size.name}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            
+                            <button class="add-to-cart-btn" onclick="addToCart(${item.id}, this)">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Add click events to menu items for quick view
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function(event) {
+                    if (!event.target.classList.contains('add-to-cart-btn') && 
+                        !event.target.classList.contains('size-option') &&
+                        !event.target.closest('.size-option')) {
+                        const itemId = parseInt(this.dataset.id);
+                        showQuickView(itemId);
+                    }
+                });
+            });
+            
+            // Add click events to size options
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    this.parentElement.querySelectorAll('.size-option').forEach(o => {
+                        o.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // Update price in the header
+                    const price = parseFloat(this.dataset.price);
+                    const header = this.closest('.menu-item-content').querySelector('.item-price');
+                    if (header) {
+                        header.textContent = `$${price.toFixed(2)}`;
+                        header.classList.add('price-change');
+                        setTimeout(() => header.classList.remove('price-change'), 500);
+                    }
+                });
+            });
+        }
+
+        // Show quick view modal
+        function showQuickView(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            if (!item) return;
+            
+            const modalContent = document.getElementById('modalContent');
+            
+            // Use icon if image is not available
+            const imageContent = item.image ? 
+                `<img src="${item.image}" alt="${item.name}" style="width: 100%; border-radius: 10px;" onerror="this.onerror=null; this.src=''; this.style.display='none'; this.parentElement.innerHTML='<i class=\"fas ${item.icon}\" style=\"font-size: 80px; color: #00754a; margin: 20px auto; display: block;\"></i>';">` :
+                `<i class="fas ${item.icon}" style="font-size: 80px; color: #00754a; margin: 20px auto; display: block;"></i>`;
+            
+            modalContent.innerHTML = `
+                <div class="close-modal" onclick="document.getElementById('quickViewModal').style.display='none'">&times;</div>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="text-align: center;">
+                        ${imageContent}
+                    </div>
+                    <div>
+                        <h2 style="margin-bottom: 10px;">${item.name}</h2>
+                        <div style="color: #00754a; font-size: 24px; font-weight: bold; margin: 10px 0;">$${item.price.toFixed(2)}</div>
+                        <p style="color: #666; line-height: 1.6;">${item.description}</p>
+                        <div style="display: flex; gap: 5px; margin: 15px 0; flex-wrap: wrap;">
+                            ${item.tags.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div style="border-top: 1px solid #eee; padding-top: 20px;">
+                        <h3 style="margin-bottom: 15px;">Customize Your Order</h3>
+                        
+                        ${item.sizes.length > 1 ? `
+                            <div style="margin-bottom: 20px;">
+                                <strong>Size:</strong>
+                                <div class="size-options" style="margin-top: 10px;">
+                                    ${item.sizes.map((size, index) => `
+                                        <div class="size-option ${index === 1 ? 'selected' : ''}" data-price="${size.price}" onclick="selectSize(this)">
+                                            ${size.name}<br>
+                                            <small>$${size.price.toFixed(2)}</small>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${item.customizations && item.customizations.length > 0 ? `
+                            <div style="margin-bottom: 20px;">
+                                <strong>Customizations:</strong>
+                                <div class="customization-options" style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                    ${item.customizations.map(custom => `
+                                        <div class="customization-option" data-price="${custom.price}" onclick="toggleCustomization(this)" style="padding: 8px 12px; border: 2px solid #ddd; border-radius: 5px; cursor: pointer;">
+                                            ${custom.name}
+                                            ${custom.price > 0 ? `<br><small>+$${custom.price.toFixed(2)}</small>` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="item-counter" style="margin-bottom: 20px;">
+                            <strong>Quantity:</strong>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+                                <button class="counter-btn" onclick="changeQuantity(-1)">-</button>
+                                <span class="counter-value" id="modalQuantity">1</span>
+                                <button class="counter-btn" onclick="changeQuantity(1)">+</button>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart-btn" style="width: 100%;" onclick="addToCartFromModal(${item.id})">
+                            <i class="fas fa-cart-plus"></i> Add to Cart - $<span id="modalTotalPrice">${item.price.toFixed(2)}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('quickViewModal').style.display = 'flex';
+            
+            // Initialize modal functionality
+            initializeModal();
+        }
+
+        let modalQuantity = 1;
+
+        function initializeModal() {
+            modalQuantity = 1;
+            
+            // Size selection in modal
+            document.querySelectorAll('#modalContent .size-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    this.parentElement.querySelectorAll('.size-option').forEach(o => {
+                        o.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    updateModalPrice();
+                });
+            });
+            
+            // Customization selection in modal
+            document.querySelectorAll('#modalContent .customization-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    updateModalPrice();
+                });
+            });
+        }
+
+        function changeQuantity(change) {
+            modalQuantity = Math.max(1, modalQuantity + change);
+            document.getElementById('modalQuantity').textContent = modalQuantity;
+            updateModalPrice();
+        }
+
+        function updateModalPrice() {
+            const addToCartBtn = document.querySelector('#modalContent .add-to-cart-btn');
+            if (!addToCartBtn) return;
+            
+            const itemId = parseInt(addToCartBtn.getAttribute('onclick').match(/\d+/)[0]);
+            const item = menuData.find(item => item.id === itemId);
+            if (!item) return;
+            
+            const selectedSize = document.querySelector('#modalContent .size-option.selected');
+            const sizePrice = selectedSize ? parseFloat(selectedSize.dataset.price) : item.price;
+            
+            let customizationsTotal = 0;
+            document.querySelectorAll('#modalContent .customization-option.selected').forEach(custom => {
+                customizationsTotal += parseFloat(custom.dataset.price);
+            });
+            
+            const totalPrice = (sizePrice + customizationsTotal) * modalQuantity;
+            document.getElementById('modalTotalPrice').textContent = totalPrice.toFixed(2);
+        }
+
+        function selectSize(element) {
+            element.parentElement.querySelectorAll('.size-option').forEach(o => {
+                o.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            updateModalPrice();
+        }
+
+        function toggleCustomization(element) {
+            element.classList.toggle('selected');
+            updateModalPrice();
+        }
+
+        function addToCartFromModal(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            const selectedSize = document.querySelector('#modalContent .size-option.selected');
+            const sizeName = selectedSize ? selectedSize.textContent.split('\n')[0] : item.sizes[1]?.name || 'Regular';
+            const sizePrice = selectedSize ? parseFloat(selectedSize.dataset.price) : item.price;
+            
+            const selectedCustomizations = Array.from(document.querySelectorAll('#modalContent .customization-option.selected'))
+                .map(custom => custom.textContent.split('\n')[0]);
+            
+            const customizationsTotal = selectedCustomizations.reduce((total, customName) => {
+                const custom = item.customizations.find(c => c.name === customName);
+                return total + (custom ? custom.price : 0);
+            }, 0);
+            
+            const cartItem = {
+                id: item.id,
+                name: item.name,
+                basePrice: item.price,
+                size: sizeName,
+                sizePrice: sizePrice,
+                customizations: selectedCustomizations,
+                customizationsTotal: customizationsTotal,
+                totalPrice: (sizePrice + customizationsTotal) * modalQuantity,
+                image: item.image || item.icon,
+                quantity: modalQuantity
+            };
+            
+            addCartItem(cartItem);
+            document.getElementById('quickViewModal').style.display = 'none';
+            
+            // Show notification
+            showNotification(`${modalQuantity} x ${item.name} added to cart!`);
+        }
+
+        function addToCart(itemId, button) {
+            const item = menuData.find(i => i.id === itemId);
+            const menuItem = button.closest('.menu-item');
+            const selectedSize = menuItem.querySelector('.size-option.selected');
+            const sizeName = selectedSize ? selectedSize.textContent : item.sizes[1]?.name || 'Regular';
+            const sizePrice = selectedSize ? parseFloat(selectedSize.dataset.price) : item.price;
+            
+            const cartItem = {
+                id: item.id,
+                name: item.name,
+                basePrice: item.price,
+                size: sizeName,
+                sizePrice: sizePrice,
+                customizations: [],
+                customizationsTotal: 0,
+                totalPrice: sizePrice,
+                image: item.image || item.icon,
+                quantity: 1
+            };
+            
+            addCartItem(cartItem);
+            
+            // Visual feedback
+            button.innerHTML = '<i class="fas fa-check"></i> Added!';
+            button.classList.add('added');
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                button.classList.remove('added');
+            }, 2000);
+            
+            // Show notification
+            showNotification(`${item.name} added to cart!`);
+        }
+
+        function addCartItem(cartItem) {
+            // Check if item already exists in cart
+            const existingIndex = cart.findIndex(item => 
+                item.id === cartItem.id && 
+                item.size === cartItem.size && 
+                JSON.stringify(item.customizations) === JSON.stringify(cartItem.customizations)
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += cartItem.quantity;
+                cart[existingIndex].totalPrice = cart[existingIndex].sizePrice * cart[existingIndex].quantity;
+            } else {
+                cart.push(cartItem);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('starbucksCart', JSON.stringify(cart));
+            
+            // Update cart display
+            updateCartDisplay();
+            
+            // Show cart summary
+            const cartSummary = document.getElementById('cartSummary');
+            if (cartSummary) {
+                cartSummary.classList.add('show');
+            }
+        }
+
+        function updateCartDisplay() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                cartCount.textContent = totalItems;
+            }
+            
+            // Update cart items list
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotalContainer = document.getElementById('cartTotal');
+            
+            if (!cartItemsContainer || !cartTotalContainer) return;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Your cart is empty</p>';
+                cartTotalContainer.textContent = '$0.00';
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = cart.map((item, index) => {
+                const itemTotal = item.totalPrice || (item.sizePrice * item.quantity);
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-name">
+                            ${item.name} (${item.size})
+                            ${item.customizations && item.customizations.length > 0 ? `<br><small>${item.customizations.join(', ')}</small>` : ''}
+                            <br>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                <button onclick="updateCartQuantity(${index}, -1)" style="background: none; border: none; color: #00754a; cursor: pointer;">-</button>
+                                <span style="font-size: 12px;">Qty: ${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${index}, 1)" style="background: none; border: none; color: #00754a; cursor: pointer;">+</button>
+                                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4444; cursor: pointer; margin-left: 10px;">
+                                    <i class="fas fa-trash" style="font-size: 12px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">
+                            $${itemTotal.toFixed(2)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.totalPrice || (item.sizePrice * item.quantity)), 0);
+            cartTotalContainer.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function updateCartQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+                showNotification('Item removed from cart');
+            } else {
+                cart[index].totalPrice = cart[index].sizePrice * cart[index].quantity;
+                showNotification(`Quantity updated: ${cart[index].quantity} x ${cart[index].name}`);
+            }
+            
+            localStorage.setItem('starbucksCart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function removeFromCart(index) {
+            const itemName = cart[index].name;
+            cart.splice(index, 1);
+            localStorage.setItem('starbucksCart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification(`${itemName} removed from cart`);
+        }
+
+        function goToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+            
+            // Save cart to localStorage for checkout page
+            localStorage.setItem('starbucksCart', JSON.stringify(cart));
+            
+            // Redirect to checkout
+            window.location.href = 'checkout.html';
+        }
+
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'cart-notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: ${type === 'success' ? '#00754a' : '#ff4444'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 50px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                white-space: nowrap;
+                font-weight: bold;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // Add animation styles if not already present
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from {
+                            transform: translateX(-50%) translateY(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(-50%) translateY(0);
+                            opacity: 1;
+                        }
+                    }
+                    
+                    @keyframes slideOut {
+                        from {
+                            transform: translateX(-50%) translateY(0);
+                            opacity: 1;
+                        }
+                        to {
+                            transform: translateX(-50%) translateY(100%);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Make functions available globally
+        window.addToCart = addToCart;
+        window.addToCartFromModal = addToCartFromModal;
+        window.selectSize = selectSize;
+        window.toggleCustomization = toggleCustomization;
+        window.changeQuantity = changeQuantity;
+        window.goToCheckout = goToCheckout;
+        window.updateCartQuantity = updateCartQuantity;
+        window.removeFromCart = removeFromCart;
+        window.showNotification = showNotification;
+    </script>
+</body>
+</html>

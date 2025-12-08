@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet - Starbucks Sustainability</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .planet-hero {
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .planet-hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .planet-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .planet-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .planet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Mission Section */
+        .mission-section {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px;
+            background-color: #f9f9f9;
+            border-radius: 20px;
+        }
+        
+        .mission-icon {
+            font-size: 60px;
+            color: #00754a;
+            margin-bottom: 30px;
+        }
+        
+        /* Initiatives Grid */
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .initiative-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .initiative-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .initiative-image {
+            height: 200px;
+            background-color: #d4e9e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #1e3932;
+        }
+        
+        .initiative-content {
+            padding: 30px;
+        }
+        
+        .initiative-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #00754a;
+        }
+        
+        /* Progress Section */
+        .progress-section {
+            background: linear-gradient(135deg, #f0f9f5 0%, #e8f5e8 100%);
+            padding: 80px 60px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        
+        .progress-bars {
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .progress-item {
+            margin-bottom: 30px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: rgba(30, 57, 50, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00754a 0%, #1e3932 100%);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        
+        /* Tree Planting Section */
+        .tree-section {
+            background-color: #1e3932;
+            color: white;
+            padding: 80px 60px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tree-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L50,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .tree-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .tree-stat {
+            text-align: center;
+        }
+        
+        .tree-stat .number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #d4e9e2;
+            margin-bottom: 10px;
+        }
+        
+        /* Water Cleanup Section */
+        .water-section {
+            background: linear-gradient(135deg, #0077be 0%, #00a8e8 100%);
+            color: white;
+            padding: 80px 60px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        
+        .water-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .water-stat {
+            text-align: center;
+        }
+        
+        .water-stat .number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #b3e0ff;
+            margin-bottom: 10px;
+        }
+        
+        /* Partnerships */
+        .partners-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .partner-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .partner-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .partner-icon {
+            font-size: 50px;
+            color: #00754a;
+            margin-bottom: 20px;
+        }
+        
+        /* How to Help */
+        .help-section {
+            background-color: #f9f9f9;
+            padding: 80px 60px;
+            border-radius: 20px;
+            margin: 80px 0;
+        }
+        
+        .help-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .help-option {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .help-option:hover {
+            transform: translateY(-5px);
+        }
+        
+        .help-icon {
+            font-size: 40px;
+            color: #00754a;
+            margin-bottom: 20px;
+        }
+        
+        /* Impact Timeline */
+        .timeline-section {
+            margin: 80px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #d4e9e2;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            width: 50%;
+            padding: 30px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .timeline-year {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00754a;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #00754a;
+            border-radius: 50%;
+            top: 40px;
+        }
+        
+        .timeline-item:nth-child(odd):before {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even):before {
+            left: -10px;
+        }
+        
+        /* Donation Section */
+        .donation-section {
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            color: white;
+            padding: 80px 60px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .donation-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .donation-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .donation-option.selected {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+        
+        .donation-option .amount {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .custom-donation {
+            margin-top: 30px;
+        }
+        
+        .custom-donation input {
+            padding: 15px;
+            border-radius: 50px;
+            border: none;
+            width: 200px;
+            text-align: center;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .planet-hero {
+                padding: 60px 20px;
+            }
+            
+            .planet-hero h1 {
+                font-size: 36px;
+            }
+            
+            .mission-section, .progress-section,
+            .tree-section, .water-section,
+            .help-section, .donation-section {
+                padding: 40px 20px;
+            }
+            
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 60px;
+            }
+            
+            .timeline-item:before {
+                left: 20px !important;
+            }
+            
+            .tree-stats, .water-stats {
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <div style="font-size: 24px; font-weight: bold; color: #00754a;">STARBUCKS</div>
+                </a>
+            </div>
+            <ul class="navbar-nav-left">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="giftcards.html">Gift Cards</a></li>
+                <li><a href="planet.html" style="color:#00754a;">Planet</a></li>
+            </ul>
+            <ul class="navbar-nav-right">
+                <li><a href="findastore.html"><i class="fas fa-map-marker-alt"></i> Find a store</a></li>
+                <li><button class="btn btn-dark-outline" onclick="redirectToSignIn('signin')">Sign in</button></li>
+                <li><button class="btn btn-dark" onclick="redirectToSignIn('join')">Join now</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="planet-hero">
+        <h1>Our Planet Commitment</h1>
+        <p>Working towards a sustainable future, one cup at a time. Join us in our mission to give back more than we take.</p>
+        <button class="btn btn-light" style="background-color: white; color: #1e3932;" onclick="scrollToDonation()">Support Our Mission</button>
+    </section>
+
+    <div class="planet-container">
+        <!-- Mission Statement -->
+        <div class="mission-section">
+            <div class="mission-icon">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <h2>Our Sustainability Promise</h2>
+            <p style="max-width: 800px; margin: 20px auto 30px; font-size: 18px; line-height: 1.6;">
+                At Starbucks, we believe in nurturing the human spirit – and that includes caring for our planet. 
+                We're committed to being a resource-positive company, giving back more than we take from the earth.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+                <div style="background: #00754a; color: white; padding: 10px 20px; border-radius: 20px;">
+                    <i class="fas fa-tree"></i> Plant Trees
+                </div>
+                <div style="background: #00754a; color: white; padding: 10px 20px; border-radius: 20px;">
+                    <i class="fas fa-tint"></i> Clean Water
+                </div>
+                <div style="background: #00754a; color: white; padding: 10px 20px; border-radius: 20px;">
+                    <i class="fas fa-recycle"></i> Reduce Waste
+                </div>
+                <div style="background: #00754a; color: white; padding: 10px 20px; border-radius: 20px;">
+                    <i class="fas fa-sun"></i> Renewable Energy
+                </div>
+            </div>
+        </div>
+
+        <!-- Tree Planting Initiative -->
+        <div class="tree-section">
+            <h2>🌳 Tree Planting Initiative</h2>
+            <p style="max-width: 800px; margin: 20px auto 30px; font-size: 18px; line-height: 1.6;">
+                For every 10 cups of coffee sold, Starbucks plants one tree in deforested areas around the world. 
+                Together with our partners, we're working to restore ecosystems and combat climate change.
+            </p>
+            
+            <div class="tree-stats">
+                <div class="tree-stat">
+                    <div class="number" id="treesPlanted">2,456,789</div>
+                    <p>Trees Planted This Year</p>
+                </div>
+                <div class="tree-stat">
+                    <div class="number">50M+</div>
+                    <p>Trees Since 2020</p>
+                </div>
+                <div class="tree-stat">
+                    <div class="number">15</div>
+                    <p>Countries Supported</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-light" style="background-color: white; color: #1e3932; margin-top: 40px;" onclick="plantTree()">
+                <i class="fas fa-seedling"></i> Plant a Tree Today
+            </button>
+        </div>
+
+        <!-- Water Cleanup Initiative -->
+        <div class="water-section">
+            <h2>💧 Water Conservation & Cleanup</h2>
+            <p style="max-width: 800px; margin: 20px auto 30px; font-size: 18px; line-height: 1.6;">
+                Starbucks is committed to conserving water and cleaning up our oceans, rivers, and lakes. 
+                We fund water cleanup projects and support communities with water access initiatives.
+            </p>
+            
+            <div class="water-stats">
+                <div class="water-stat">
+                    <div class="number">1.2M+</div>
+                    <p>Liters of Water Cleaned</p>
+                </div>
+                <div class="water-stat">
+                    <div class="number">250+</div>
+                    <p>Cleanup Projects Funded</p>
+                </div>
+                <div class="water-stat">
+                    <div class="number">25%</div>
+                    <p>Water Reduction in Stores</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-light" style="background-color: white; color: #0077be; margin-top: 40px;" onclick="supportWaterCleanup()">
+                <i class="fas fa-tint"></i> Support Water Cleanup
+            </button>
+        </div>
+
+        <!-- Sustainability Initiatives -->
+        <h2 style="text-align: center; margin-top: 80px;">Our Sustainability Initiatives</h2>
+        <p style="text-align: center; margin-bottom: 50px; color: #666; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Discover how we're working to reduce our environmental footprint and create positive change.
+        </p>
+        
+        <div class="initiatives-grid">
+            <div class="initiative-card">
+                <div class="initiative-image" style="background-color: #e8f5e8;">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <div class="initiative-content">
+                    <h3>Waste Reduction</h3>
+                    <p>Eliminating single-use plastics and increasing recyclable/reusable packaging.</p>
+                    <div class="initiative-stats">
+                        <div class="stat-number">65%</div>
+                        <div>Less waste in landfills since 2018</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="initiative-card">
+                <div class="initiative-image" style="background-color: #f0f9f5;">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="initiative-content">
+                    <h3>Renewable Energy</h3>
+                    <p>Powering our stores with 100% renewable energy by 2025.</p>
+                    <div class="initiative-stats">
+                        <div class="stat-number">85%</div>
+                        <div>Of stores using renewable energy</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="initiative-card">
+                <div class="initiative-image" style="background-color: #d4e9e2;">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <div class="initiative-content">
+                    <h3>Ethical Sourcing</h3>
+                    <p>100% of our coffee is ethically sourced through C.A.F.E. Practices.</p>
+                    <div class="initiative-stats">
+                        <div class="stat-number">100%</div>
+                        <div>Ethically sourced coffee beans</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Towards Goals -->
+        <div class="progress-section">
+            <h2>Our 2030 Goals Progress</h2>
+            <p>Tracking our journey towards a more sustainable future</p>
+            
+            <div class="progress-bars">
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span>Carbon Neutral Footprint</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span>Water Positive</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span>Waste Reduction</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span>Plant 100M Trees</span>
+                        <span>50%</span>
+                    </div>
+                    <div class="initiative-stats">
+                        <div class="stat-number">50M</div>
+                        <div>Trees planted towards our goal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Impact Timeline -->
+        <div class="timeline-section">
+            <h2 style="text-align: center;">Our Sustainability Journey</h2>
+            <p style="text-align: center; margin-bottom: 50px; color: #666;">
+                Key milestones in our commitment to the planet
+            </p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-content">
+                        <h4>Planting Initiative Launch</h4>
+                        <p>Launched our global tree planting program, committing to plant 1 tree for every 10 cups sold.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-content">
+                        <h4>Ocean Cleanup Partnership</h4>
+                        <p>Partnered with Ocean Cleanup to remove plastic from the world's oceans.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h4>Carbon Neutral Stores</h4>
+                        <p>Opened our first 100% carbon neutral stores in Seattle and Amsterdam.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h4>50 Million Trees Planted</h4>
+                        <p>Reached our milestone of planting 50 million trees worldwide.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h4>Water Conservation Goal</h4>
+                        <p>Achieved 25% reduction in water usage across all stores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How You Can Help -->
+        <div class="help-section">
+            <h2 style="text-align: center;">How You Can Help</h2>
+            <p style="text-align: center; margin-bottom: 50px; color: #666; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Join us in making a difference. Every small action contributes to a bigger change.
+            </p>
+            
+            <div class="help-options">
+                <div class="help-option">
+                    <div class="help-icon"><i class="fas fa-mug-hot"></i></div>
+                    <h3>Use Reusable Cups</h3>
+                    <p>Bring your own cup and get a discount on your drink while reducing waste.</p>
+                </div>
+                
+                <div class="help-option">
+                    <div class="help-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3>Round Up for Change</h3>
+                    <p>Round up your purchase to the nearest dollar to support our environmental initiatives.</p>
+                </div>
+                
+                <div class="help-option">
+                    <div class="help-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Plant a Tree</h3>
+                    <p>Add $1 to your order to plant a tree in a deforested area.</p>
+                </div>
+                
+                <div class="help-option">
+                    <div class="help-icon"><i class="fas fa-recycle"></i></div>
+                    <h3>Recycle Properly</h3>
+                    <p>Use our in-store recycling stations for cups, lids, and packaging.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donation Section -->
+        <div class="donation-section" id="donationSection">
+            <h2>Support Our Planet Initiatives</h2>
+            <p style="max-width: 800px; margin: 20px auto 30px; font-size: 18px;">
+                Your donation helps fund tree planting, water cleanup, and environmental conservation projects worldwide.
+                Every contribution makes a difference.
+            </p>
+            
+            <div class="donation-options">
+                <div class="donation-option" onclick="selectDonation(5)">
+                    <div class="amount">$5</div>
+                    <p>Plants 5 Trees</p>
+                </div>
+                
+                <div class="donation-option selected" onclick="selectDonation(10)">
+                    <div class="amount">$10</div>
+                    <p>Cleans 100L of Water</p>
+                </div>
+                
+                <div class="donation-option" onclick="selectDonation(25)">
+                    <div class="amount">$25</div>
+                    <p>Supports 1 Acre of Forest</p>
+                </div>
+                
+                <div class="donation-option" onclick="selectDonation(50)">
+                    <div class="amount">$50</div>
+                    <p>Funds a Cleanup Project</p>
+                </div>
+            </div>
+            
+            <div class="custom-donation">
+                <h3 style="margin-bottom: 20px;">Or Enter Custom Amount</h3>
+                <div>
+                    <input type="number" id="customDonation" min="1" max="1000" value="10" placeholder="Enter amount">
+                    <button class="btn btn-light" onclick="makeDonation()">
+                        <i class="fas fa-heart"></i> Donate Now
+                    </button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; font-size: 14px; opacity: 0.8;">
+                <p><i class="fas fa-lock"></i> 100% Secure Donation • Tax Deductible • Monthly Options Available</p>
+            </div>
+        </div>
+
+        <!-- Partnerships -->
+        <div class="partners-section">
+            <h2>Our Environmental Partners</h2>
+            <p style="margin-bottom: 50px; color: #666;">
+                Working together with leading environmental organizations
+            </p>
+            
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-icon"><i class="fas fa-tree"></i></div>
+                    <h3>Arbor Day Foundation</h3>
+                    <p>Global tree planting and forest conservation</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-icon"><i class="fas fa-water"></i></div>
+                    <h3>Ocean Cleanup</h3>
+                    <p>Advanced technologies to rid oceans of plastic</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3>World Wildlife Fund</h3>
+                    <p>Conserving nature and reducing threats</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-icon"><i class="fas fa-recycle"></i></div>
+                    <h3>Climate Collaborative</h3>
+                    <p>Business solutions for climate change</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Our Company</a></li>
+                    <li><a href="#">Our Coffee</a></li>
+                    <li><a href="#">Stories and News</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Careers</h4>
+                <ul>
+                    <li><a href="opportunities.html">Opportunities</a></li>
+                    <li><a href="#">Culture and Values</a></li>
+                    <li><a href="#">Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Social Impact</h4>
+                <ul>
+                    <li><a href="planet.html" style="font-weight: bold;">Planet</a></li>
+                    <li><a href="#">People</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Starbucks Clone. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a> | <a href="#">Sustainability Report</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Planet Page Functionality
+        let selectedDonationAmount = 10;
+        let treesPlantedCount = 2456789;
+        let animationStarted = false;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize trees planted counter
+            updateTreesPlanted();
+            
+            // Start counter animation when in view
+            startCounterAnimation();
+            
+            // Initialize donation selection
+            selectDonation(10);
+        });
+
+        // Update trees planted counter
+        function updateTreesPlanted() {
+            document.getElementById('treesPlanted').textContent = 
+                treesPlantedCount.toLocaleString();
+        }
+
+        // Start counter animation
+        function startCounterAnimation() {
+            if (animationStarted) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter();
+                        animationStarted = true;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const treeSection = document.querySelector('.tree-section');
+            if (treeSection) {
+                observer.observe(treeSection);
+            }
+        }
+
+        // Animate counter
+        function animateCounter() {
+            const target = treesPlantedCount + 1000; // Add some for animation
+            const element = document.getElementById('treesPlanted');
+            const duration = 2000; // 2 seconds
+            const steps = 60;
+            const step = (target - treesPlantedCount) / steps;
+            let current = treesPlantedCount;
+            
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, duration / steps);
+        }
+
+        // Select donation amount
+        function selectDonation(amount) {
+            selectedDonationAmount = amount;
+            
+            // Update UI
+            document.querySelectorAll('.donation-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            event.target.closest('.donation-option').classList.add('selected');
+            
+            // Update custom donation input
+            document.getElementById('customDonation').value = amount;
+        }
+
+        // Make donation
+        function makeDonation() {
+            const customAmount = parseInt(document.getElementById('customDonation').value) || selectedDonationAmount;
+            
+            if (customAmount < 1) {
+                alert('Please enter a donation amount of at least $1.');
+                return;
+            }
+            
+            if (customAmount > 1000) {
+                alert('Maximum donation amount is $1000. For larger donations, please contact us.');
+                return;
+            }
+            
+            // Show confirmation
+            const donationType = getDonationType(customAmount);
+            
+            if (confirm(`Thank you for your generous donation of $${customAmount}!\n\nThis will ${donationType}.\n\nProceed to secure payment?`)) {
+                // In a real app, this would redirect to a payment processor
+                // For now, we'll simulate a successful donation
+                simulateDonation(customAmount);
+            }
+        }
+
+        // Get donation type description
+        function getDonationType(amount) {
+            if (amount >= 50) return 'fund a water cleanup project';
+            if (amount >= 25) return 'support one acre of forest conservation';
+            if (amount >= 10) return 'clean 100 liters of water';
+            if (amount >= 5) return 'plant 5 trees';
+            return 'support our environmental initiatives';
+        }
+
+        // Simulate donation
+        function simulateDonation(amount) {
+            // Update trees planted (for demo purposes)
+            const treesToAdd = Math.floor(amount);
+            treesPlantedCount += treesToAdd;
+            updateTreesPlanted();
+            
+            // Show success message
+            alert(`🎉 Thank you for your donation of $${amount}!\n\nYour contribution will help:\n• Plant ${treesToAdd} trees\n• Support water conservation\n• Fund environmental projects\n\nA receipt has been sent to your email.`);
+            
+            // Reset donation selection
+            selectDonation(10);
+        }
+
+        // Plant a tree
+        function plantTree() {
+            if (confirm('Would you like to add $1 to your next purchase to plant a tree?\n\nYou can do this at checkout in-store or online.')) {
+                alert('🌳 Thank you! The $1 tree planting option will be available at checkout.\n\nTogether, we can make a difference!');
+            }
+        }
+
+        // Support water cleanup
+        function supportWaterCleanup() {
+            if (confirm('Support our water cleanup initiatives by rounding up your next purchase to the nearest dollar.\n\nWould you like to enable Round Up for Change?')) {
+                alert('💧 Thank you for supporting water conservation!\n\nRound Up for Change has been enabled on your account.');
+            }
+        }
+
+        // Scroll to donation section
+        function scrollToDonation() {
+            document.getElementById('donationSection').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Redirect to sign in
+        function redirectToSignIn(action) {
+            localStorage.setItem('authAction', action);
+            window.location.href = 'signin.html';
+        }
+
+        // Make functions available globally
+        window.selectDonation = selectDonation;
+        window.makeDonation = makeDonation;
+        window.plantTree = plantTree;
+        window.supportWaterCleanup = supportWaterCleanup;
+        window.scrollToDonation = scrollToDonation;
+        window.redirectToSignIn = redirectToSignIn;
+    </script>
+</body>
+</html>
