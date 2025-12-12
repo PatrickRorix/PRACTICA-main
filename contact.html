@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Starbucks Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-hero {
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .contact-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Contact Methods */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .contact-method {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 5px solid #00754a;
+        }
+        
+        .contact-method:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .contact-icon {
+            font-size: 50px;
+            color: #00754a;
+            margin-bottom: 20px;
+        }
+        
+        .contact-method h3 {
+            margin-bottom: 15px;
+            color: #1e3932;
+        }
+        
+        .contact-detail {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Form */
+        .contact-form-section {
+            background: linear-gradient(135deg, #f0f9f5 0%, #e8f5e8 100%);
+            padding: 60px;
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e3932;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #00754a;
+            box-shadow: 0 0 0 3px rgba(0, 117, 74, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin: 60px 0;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: #1e3932;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Social Media */
+        .social-section {
+            text-align: center;
+            margin: 60px 0;
+            padding: 50px;
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            color: white;
+            border-radius: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: white;
+            color: #00754a;
+            transform: translateY(-5px);
+        }
+        
+        /* Store Hours */
+        .hours-section {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            margin: 60px 0;
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .day-hours {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .day {
+            font-weight: 600;
+            color: #1e3932;
+        }
+        
+        .hours {
+            color: #666;
+        }
+        
+        /* Response Time */
+        .response-time {
+            background: #f0f9f5;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 40px;
+            border-left: 5px solid #00754a;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #00754a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 36px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .contact-form-section {
+                padding: 30px 20px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .hours-section {
+                padding: 30px 20px;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-hero {
+                padding: 50px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <div style="font-size: 24px; font-weight: bold; color: #00754a;">STARBUCKS</div>
+                </a>
+            </div>
+            <ul class="navbar-nav-left">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="giftcards.html">Gift Cards</a></li>
+                <li><a href="opportunities.html">Opportunities</a></li>
+                <li><a href="planet.html">Planet</a></li>
+                <li><a href="contact.html" style="color:#00754a;">Contact</a></li>
+            </ul>
+            <ul class="navbar-nav-right">
+                <li><a href="findastore.html"><i class="fas fa-map-marker-alt"></i> Find a store</a></li>
+                <li><button class="btn btn-dark-outline" onclick="window.location.href='signin.html'">Sign in</button></li>
+                <li><button class="btn btn-dark" onclick="window.location.href='signin.html'">Join now</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="contact-hero">
+        <h1>Contact Us</h1>
+        <p>We're here to help. Get in touch with us through any of the methods below.</p>
+        <button class="btn btn-light" style="background-color: white; color: #1e3932;" onclick="scrollToForm()">Send a Message</button>
+    </section>
+
+    <div class="contact-container">
+        <!-- Contact Methods -->
+        <div class="contact-methods">
+            <div class="contact-method">
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>Call Us</h3>
+                <div class="contact-detail">
+                    <strong>Customer Service:</strong><br>
+                    1-800-STARBUC (1-800-782-7282)
+                </div>
+                <div class="contact-detail">
+                    <strong>Hours:</strong><br>
+                    5 AM - 8 PM PST, 7 days a week
+                </div>
+                <button class="btn btn-light" style="margin-top: 20px;" onclick="callCustomerService()">
+                    <i class="fas fa-phone"></i> Call Now
+                </button>
+            </div>
+            
+            <div class="contact-method">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email Us</h3>
+                <div class="contact-detail">
+                    <strong>General Inquiries:</strong><br>
+                    info@starbucks.com
+                </div>
+                <div class="contact-detail">
+                    <strong>Press & Media:</strong><br>
+                    press@starbucks.com
+                </div>
+                <div class="contact-detail">
+                    <strong>Response Time:</strong><br>
+                    24-48 hours
+                </div>
+                <button class="btn btn-light" style="margin-top: 20px;" onclick="emailUs()">
+                    <i class="fas fa-envelope"></i> Send Email
+                </button>
+            </div>
+            
+            <div class="contact-method">
+                <div class="contact-icon"><i class="fas fa-comments"></i></div>
+                <h3>Live Chat</h3>
+                <div class="contact-detail">
+                    <strong>Available:</strong><br>
+                    6 AM - 10 PM PST
+                </div>
+                <div class="contact-detail">
+                    <strong>Average Wait:</strong><br>
+                    Less than 2 minutes
+                </div>
+                <button class="btn btn-light" style="margin-top: 20px;" onclick="startLiveChat()">
+                    <i class="fas fa-comment-dots"></i> Start Chat
+                </button>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-section" id="contactFormSection">
+            <h2 style="text-align: center; margin-bottom: 10px;">Send Us a Message</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: #666; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Fill out the form below and we'll get back to you as soon as possible.
+            </p>
+            
+            <div class="form-container">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" class="form-control" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="product">Product Feedback</option>
+                            <option value="order">Order Issue</option>
+                            <option value="store">Store Feedback</option>
+                            <option value="career">Career Opportunities</option>
+                            <option value="partnership">Partnership Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" class="form-control" required placeholder="Please describe your inquiry in detail..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="newsletter" checked>
+                            Subscribe to Starbucks newsletter for updates and promotions
+                        </label>
+                    </div>
+                    
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 10px;">Sending your message...</p>
+                    </div>
+                    
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle" style="font-size: 40px; margin-bottom: 15px;"></i>
+                        <h3>Message Sent Successfully!</h3>
+                        <p>Thank you for contacting Starbucks. We'll get back to you within 24-48 hours.</p>
+                        <button type="button" class="btn btn-light" style="margin-top: 15px;" onclick="resetForm()">
+                            Send Another Message
+                        </button>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-light" style="width: 100%; padding: 15px; font-size: 18px;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <div class="response-time">
+                <h3><i class="fas fa-clock"></i> Response Time</h3>
+                <p>We typically respond to all inquiries within <strong>24-48 hours</strong> during business days.</p>
+                <p style="font-size: 14px; margin-top: 10px; color: #666;">
+                    For urgent matters, please call our customer service line.
+                </p>
+            </div>
+        </div>
+
+        <!-- Store Hours -->
+        <div class="hours-section">
+            <h2 style="text-align: center; margin-bottom: 10px;">Customer Service Hours</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: #666;">
+                Our customer service team is available to assist you during these hours
+            </p>
+            
+            <div class="hours-grid">
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #1e3932;">Phone Support</h3>
+                    <div class="day-hours">
+                        <span class="day">Monday - Friday</span>
+                        <span class="hours">5:00 AM - 8:00 PM PST</span>
+                    </div>
+                    <div class="day-hours">
+                        <span class="day">Saturday</span>
+                        <span class="hours">6:00 AM - 8:00 PM PST</span>
+                    </div>
+                    <div class="day-hours">
+                        <span class="day">Sunday</span>
+                        <span class="hours">7:00 AM - 7:00 PM PST</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #1e3932;">Live Chat</h3>
+                    <div class="day-hours">
+                        <span class="day">Monday - Friday</span>
+                        <span class="hours">6:00 AM - 10:00 PM PST</span>
+                    </div>
+                    <div class="day-hours">
+                        <span class="day">Saturday - Sunday</span>
+                        <span class="hours">7:00 AM - 9:00 PM PST</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #1e3932;">Email Support</h3>
+                    <div class="day-hours">
+                        <span class="day">Response Time</span>
+                        <span class="hours">24-48 hours</span>
+                    </div>
+                    <div class="day-hours">
+                        <span class="day">Business Days</span>
+                        <span class="hours">Monday - Friday</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: #f9f9f9; border-radius: 10px;">
+                <h4 style="color: #1e3932; margin-bottom: 10px;">Holiday Hours</h4>
+                <p style="color: #666; margin-bottom: 10px;">
+                    Our customer service centers are closed on major holidays including:
+                </p>
+                <p style="color: #666;">
+                    Thanksgiving Day, Christmas Day, New Year's Day, and Easter Sunday
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2 style="text-align: center; margin-bottom: 10px;">Frequently Asked Questions</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: #666;">
+                Find quick answers to common questions
+            </p>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">How do I check my gift card balance?</div>
+                    <div class="faq-answer">
+                        You can check your gift card balance online, through the Starbucks app, at any Starbucks store, or by calling 1-800-STARBUC.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I reload my Starbucks Card?</div>
+                    <div class="faq-answer">
+                        Reload your card through the Starbucks app, online at Starbucks.com, or at any Starbucks store register.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What is Starbucks' return policy?</div>
+                    <div class="faq-answer">
+                        We offer refunds for Starbucks Card purchases and merchandise returns within 90 days with receipt. Food and beverage items cannot be returned.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I apply for a job at Starbucks?</div>
+                    <div class="faq-answer">
+                        Visit our Opportunities page to view current openings and submit your application online.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does Starbucks offer catering?</div>
+                    <div class="faq-answer">
+                        Yes! Many stores offer catering services. Contact your local store or visit our catering page for more information.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I report an issue with a store?</div>
+                    <div class="faq-answer">
+                        Please use our contact form above or call customer service. Provide as much detail as possible including store location and date/time of visit.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="social-section">
+            <h2 style="margin-bottom: 20px;">Connect With Us</h2>
+            <p style="max-width: 600px; margin: 0 auto 30px; opacity: 0.9;">
+                Follow Starbucks on social media for the latest news, promotions, and community updates.
+            </p>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon" onclick="followSocial('facebook')">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon" onclick="followSocial('twitter')">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon" onclick="followSocial('instagram')">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon" onclick="followSocial('youtube')">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-icon" onclick="followSocial('pinterest')">
+                    <i class="fab fa-pinterest-p"></i>
+                </a>
+                <a href="#" class="social-icon" onclick="followSocial('linkedin')">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            
+            <div style="margin-top: 40px; font-size: 14px; opacity: 0.8;">
+                <p>#Starbucks #CoffeeLove #StarbucksCommunity</p>
+            </div>
+        </div>
+
+        <!-- Mailing Address -->
+        <div style="text-align: center; padding: 40px; background-color: #f9f9f9; border-radius: 15px; margin-top: 60px;">
+            <h3 style="margin-bottom: 20px; color: #1e3932;">Corporate Headquarters</h3>
+            <p style="color: #666; margin-bottom: 10px;">
+                Starbucks Coffee Company<br>
+                2401 Utah Avenue South<br>
+                Seattle, WA 98134<br>
+                United States
+            </p>
+            <p style="color: #666; margin-top: 20px;">
+                For investor relations inquiries: <strong>investorrelations@starbucks.com</strong><br>
+                For media and press inquiries: <strong>press@starbucks.com</strong>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Our Company</a></li>
+                    <li><a href="#">Our Coffee</a></li>
+                    <li><a href="#">Stories and News</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Careers</h4>
+                <ul>
+                    <li><a href="opportunities.html">Opportunities</a></li>
+                    <li><a href="#">Culture and Values</a></li>
+                    <li><a href="#">Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Social Impact</h4>
+                <ul>
+                    <li><a href="planet.html">Planet</a></li>
+                    <li><a href="#">People</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="findastore.html">Find a Store</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Starbucks Clone. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a> | <a href="#">Cookie Policy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Contact Page Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Starbucks Contact Page Loaded');
+            
+            // Initialize form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleFormSubmit);
+            }
+            
+            // Add animation to contact methods
+            document.querySelectorAll('.contact-method').forEach(method => {
+                method.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.contact-icon i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2)';
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+                
+                method.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.contact-icon i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                    }
+                });
+            });
+            
+            // Initialize phone number formatting
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', formatPhoneNumber);
+            }
+        });
+
+        // Handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const newsletter = document.getElementById('newsletter').checked;
+            
+            // Validate form
+            if (!firstName || !lastName || !email || !subject || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+            
+            // Simulate API call (in a real app, this would send to a server)
+            setTimeout(() => {
+                // Hide loading spinner
+                document.getElementById('loadingSpinner').style.display = 'none';
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Log form data (in a real app, this would be sent to a server)
+                console.log('Form submitted:', {
+                    firstName,
+                    lastName,
+                    email,
+                    phone,
+                    subject,
+                    message,
+                    newsletter,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Reset form after submission
+                setTimeout(resetForm, 3000);
+                
+            }, 1500); // Simulate 1.5 second delay
+        }
+
+        // Validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Format phone number
+        function formatPhoneNumber() {
+            let phone = document.getElementById('phone').value;
+            // Remove all non-digit characters
+            phone = phone.replace(/\D/g, '');
+            
+            // Format as (XXX) XXX-XXXX
+            if (phone.length > 0) {
+                phone = '(' + phone.substring(0, 3) + ') ' + phone.substring(3, 6) + '-' + phone.substring(6, 10);
+            }
+            
+            document.getElementById('phone').value = phone;
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('contactForm').reset();
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Call customer service
+        function callCustomerService() {
+            if (confirm('Call Starbucks Customer Service at 1-800-782-7282?')) {
+                // In a real app, this would initiate a phone call
+                // For web, we can't actually make calls, so we'll show a message
+                alert('In a real mobile app, this would initiate a phone call.\n\nPhone: 1-800-STARBUC (1-800-782-7282)');
+            }
+        }
+
+        // Email us
+        function emailUs() {
+            const subject = encodeURIComponent('Starbucks Inquiry');
+            const body = encodeURIComponent('Dear Starbucks Team,\n\nI would like to inquire about...');
+            window.location.href = `mailto:info@starbucks.com?subject=${subject}&body=${body}`;
+        }
+
+        // Start live chat
+        function startLiveChat() {
+            // In a real app, this would open a chat widget
+            // For demo purposes, we'll simulate it
+            const chatWindow = window.open('', '_blank', 'width=400,height=600');
+            if (chatWindow) {
+                chatWindow.document.write(`
+                    <html>
+                    <head>
+                        <title>Starbucks Live Chat</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            .chat-header { background: #00754a; color: white; padding: 15px; border-radius: 10px 10px 0 0; }
+                            .chat-messages { height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 15px; }
+                            .message { margin-bottom: 15px; padding: 10px; border-radius: 10px; }
+                            .user-message { background: #e8f5e8; margin-left: 20px; }
+                            .bot-message { background: #f0f9f5; margin-right: 20px; }
+                            .chat-input { width: 100%; padding: 10px; margin-top: 10px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="chat-header">
+                            <h3>Starbucks Live Chat</h3>
+                            <p>Connected with Starbucks Support</p>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="message bot-message">
+                                <strong>Starbucks Support:</strong><br>
+                                Hello! Welcome to Starbucks Live Chat. How can I help you today?
+                            </div>
+                        </div>
+                        <input type="text" class="chat-input" placeholder="Type your message..." id="chatInput" onkeypress="if(event.key=='Enter') sendMessage()">
+                        <button onclick="sendMessage()" style="margin-top: 10px; padding: 10px 20px; background: #00754a; color: white; border: none; border-radius: 5px;">Send</button>
+                        
+                        <script>
+                            function sendMessage() {
+                                const input = document.getElementById('chatInput');
+                                const message = input.value;
+                                if (message.trim()) {
+                                    const messagesDiv = document.querySelector('.chat-messages');
+                                    
+                                    // Add user message
+                                    messagesDiv.innerHTML += '<div class="message user-message"><strong>You:</strong><br>' + message + '</div>';
+                                    
+                                    // Clear input
+                                    input.value = '';
+                                    
+                                    // Scroll to bottom
+                                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                                    
+                                    // Simulate bot response
+                                    setTimeout(() => {
+                                        const responses = [
+                                            "Thank you for your message. How can I assist you further?",
+                                            "I understand. Let me check that for you.",
+                                            "Is there anything else I can help you with today?",
+                                            "Our customer service team will follow up with you if needed."
+                                        ];
+                                        const response = responses[Math.floor(Math.random() * responses.length)];
+                                        messagesDiv.innerHTML += '<div class="message bot-message"><strong>Starbucks Support:</strong><br>' + response + '</div>';
+                                        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                                    }, 1000);
+                                }
+                            }
+                        </script>
+                    </body>
+                    </html>
+                `);
+            } else {
+                alert('Live Chat opened in new window. Please allow pop-ups for this site.');
+            }
+        }
+
+        // Follow social media
+        function followSocial(platform) {
+            const platforms = {
+                facebook: 'https://facebook.com/starbucks',
+                twitter: 'https://twitter.com/starbucks',
+                instagram: 'https://instagram.com/starbucks',
+                youtube: 'https://youtube.com/starbucks',
+                pinterest: 'https://pinterest.com/starbucks',
+                linkedin: 'https://linkedin.com/company/starbucks'
+            };
+            
+            // In a real app, this would redirect to the social media page
+            // For demo, we'll show a message
+            alert(`Following Starbucks on ${platform.charAt(0).toUpperCase() + platform.slice(1)}!\n\nIn a real website, this would redirect to: ${platforms[platform]}`);
+            
+            // Uncomment for actual redirect:
+            // window.open(platforms[platform], '_blank');
+        }
+
+        // Scroll to form
+        function scrollToForm() {
+            document.getElementById('contactFormSection').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Make functions available globally
+        window.handleFormSubmit = handleFormSubmit;
+        window.callCustomerService = callCustomerService;
+        window.emailUs = emailUs;
+        window.startLiveChat = startLiveChat;
+        window.followSocial = followSocial;
+        window.scrollToForm = scrollToForm;
+        window.resetForm = resetForm;
+    </script>
+</body>
+</html>
