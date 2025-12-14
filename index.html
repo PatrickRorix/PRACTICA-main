@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar UPDATED cu link către contact.html -->
+    <!-- Navbar UPDATED cu link către game.html -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
                 <a href="index.html">
-                    <!-- Placeholder pentru logo - poți înlocui cu imagine -->
                     <div style="font-size: 24px; font-weight: bold; color: #00754a;">STARBUCKS</div>
                 </a>
             </div>
@@ -24,8 +23,9 @@
                 <li><a href="giftcards.html">Gift Cards</a></li>
                 <li><a href="opportunities.html">Opportunities</a></li>
                 <li><a href="planet.html">Planet</a></li>
-                <!-- LINK NOU ADAUGAT PENTRU CONTACT -->
                 <li><a href="contact.html">Contact</a></li>
+                <!-- LINK NOU ADAUGAT PENTRU JOC -->
+                <li><a href="game.html">Play Game</a></li>
             </ul>
             <ul class="navbar-nav-right">
                 <li><a href="findastore.html"><i class="fas fa-map-marker-alt"></i> Find a store</a></li>
@@ -35,7 +35,7 @@
         </div>
     </nav>
 
-    <!-- Restul codului rămâne la fel... -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
             <div class="hero-text">
@@ -44,7 +44,7 @@
                 <button class="btn btn-light" onclick="window.location.href='menu.html'">Order now</button>
             </div>
             <div class="hero-image">
-                <img src="images/seasonal1.jpg" alt="Seasonal Drink" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\"fas fa-mug-hot\" style=\"font-size: 100px; color: #00754a;\"></i>'">
+                <img src="images/seasonal1.jpg" alt="Seasonal Drink" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\"fa-mug-hot\" style=\"font-size: 100px; color: #00754a;\"></i>'">
             </div>
         </div>
     </section>
@@ -90,7 +90,48 @@
         </div>
     </section>
 
-    <!-- New Sections for Opportunities and Planet -->
+    <!-- NEW GAME SECTION - Highlighted with special styling -->
+    <section class="hero" style="background: linear-gradient(135deg, #1e3932 0%, #00754a 100%); color: white;">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1 style="color: white;">🎮 Starbucks Coffee Catch Game</h1>
+                <p>Test your reflexes with our fun coffee-catching game! Collect falling coffee cups and pastries while avoiding bad items. Perfect for a quick break!</p>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-light" style="background-color: white; color: #1e3932;" onclick="window.location.href='game.html'">
+                        <i class="fas fa-gamepad"></i> Play Now
+                    </button>
+                    <button class="btn btn-dark-outline" style="border-color: white; color: white;" onclick="showGamePreview()">
+                        <i class="fas fa-play-circle"></i> Watch Preview
+                    </button>
+                </div>
+                <div style="margin-top: 30px; display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-trophy" style="color: #FFD700;"></i>
+                        <span>High Score Leaderboard</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-medal" style="color: #cba258;"></i>
+                        <span>Earn Achievements</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-power-off" style="color: #4CAF50;"></i>
+                        <span>Power-ups Available</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div style="background: rgba(255, 255, 255, 0.1); height: 300px; border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 3px solid rgba(255, 255, 255, 0.2);">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 80px; margin-bottom: 20px;">☕🎯</div>
+                        <div style="font-size: 24px; font-weight: bold;">Catch The Coffee!</div>
+                        <div style="margin-top: 10px; font-size: 14px; opacity: 0.9;">Use arrow keys or mouse to play</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
     <section class="promo" style="background-color: #f2f0eb;">
         <div class="promo-container">
             <div class="promo-text">
@@ -106,6 +147,7 @@
         </div>
     </section>
 
+    <!-- Planet Section -->
     <section class="hero" style="background-color: #d4e9e2;">
         <div class="hero-container">
             <div class="hero-image">
@@ -121,7 +163,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION FOR CONTACT -->
+    <!-- Contact Section -->
     <section class="promo" style="background-color: #f9f9f9;">
         <div class="promo-container">
             <div class="promo-image">
@@ -147,7 +189,40 @@
         </div>
     </section>
 
-    <!-- Footer UPDATED cu link către contact.html -->
+    <!-- Mini Game Preview (Hidden by default) -->
+    <div id="gamePreview" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, #1e3932 0%, #00754a 100%); padding: 30px; border-radius: 15px; max-width: 800px; width: 90%; position: relative;">
+            <button onclick="closeGamePreview()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">🎮 Game Preview</h2>
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center;">
+                    <div style="background: rgba(139, 69, 19, 0.5); padding: 15px; border-radius: 10px;">
+                        <div style="font-size: 30px;">☕</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Coffee Cup<br>+10 pts</div>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.5); padding: 15px; border-radius: 10px;">
+                        <div style="font-size: 30px;">🥐</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Croissant<br>+25 pts</div>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.5); padding: 15px; border-radius: 10px;">
+                        <div style="font-size: 30px;">⭐</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Star<br>+50 pts</div>
+                    </div>
+                    <div style="background: rgba(255, 68, 68, 0.5); padding: 15px; border-radius: 10px;">
+                        <div style="font-size: 30px;">💀</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Bad Item<br>-1 life</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn btn-light" style="background-color: white; color: #1e3932; padding: 15px 40px; font-size: 18px;" onclick="window.location.href='game.html'">
+                    <i class="fas fa-play"></i> Play Full Game Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer UPDATED cu link către game.html -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-links">
@@ -175,9 +250,17 @@
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Customer Service</h4>
+                <h4>Fun & Games</h4>
                 <ul>
                     <!-- LINK NOU ADAUGAT -->
+                    <li><a href="game.html">Coffee Catch Game</a></li>
+                    <li><a href="menu.html">Interactive Menu</a></li>
+                    <li><a href="rewards.html">Rewards Challenge</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Service</h4>
+                <ul>
                     <li><a href="contact.html">Contact Us</a></li>
                     <li><a href="findastore.html">Find a Store</a></li>
                     <li><a href="#">FAQ</a></li>
@@ -186,7 +269,7 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2023 Starbucks Clone. All rights reserved.</p>
-            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a></p>
+            <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a> | <a href="game.html">Play Game</a></p>
         </div>
     </footer>
 
@@ -216,8 +299,23 @@
                 });
             });
             
-            // Adăugăm efect pentru butoanele din secțiuni noi
-            document.querySelectorAll('.btn-light').forEach(button => {
+            // Adăugăm efect special pentru secțiunea joc
+            const gameSection = document.querySelector('.hero[style*="linear-gradient"]');
+            if (gameSection) {
+                gameSection.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.01)';
+                    this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                    this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)';
+                });
+                
+                gameSection.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            }
+            
+            // Adăugăm efect pentru butoane
+            document.querySelectorAll('.btn-light, .btn-dark-outline').forEach(button => {
                 button.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-2px)';
                     this.style.boxShadow = '0 6px 12px rgba(0,0,0,0.2)';
@@ -225,9 +323,136 @@
                 
                 button.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+                    this.style.boxShadow = 'none';
                 });
             });
+            
+            // Încărcăm high score-ul din localStorage pentru a-l afișa
+            loadHighScore();
+        });
+
+        // Funcție pentru a încărca și afișa high score-ul
+        function loadHighScore() {
+            const highScore = localStorage.getItem('starbucksGameHighScore') || '0';
+            // Poți afișa high score-ul undeva în secțiunea joc
+            console.log('Game High Score:', highScore);
+            
+            // Dacă vrei să afișezi high score-ul în secțiunea joc, adaugă asta:
+            // document.getElementById('highScoreDisplay').textContent = highScore;
+        }
+
+        // Funcție pentru a arăta preview-ul jocului
+        function showGamePreview() {
+            document.getElementById('gamePreview').style.display = 'flex';
+        }
+
+        // Funcție pentru a închide preview-ul jocului
+        function closeGamePreview() {
+            document.getElementById('gamePreview').style.display = 'none';
+        }
+
+        // Funcție pentru a redirecționa către joc cu animație
+        function playGameWithAnimation() {
+            const gameBtn = document.querySelector('[onclick*="game.html"]');
+            if (gameBtn) {
+                gameBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                gameBtn.disabled = true;
+                
+                setTimeout(() => {
+                    window.location.href = 'game.html';
+                }, 500);
+            }
+        }
+
+        // Adăugăm un event listener pentru butonul principal de joc
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('[onclick*="game.html"]') && !e.target.closest('#gamePreview')) {
+                // Dacă e butonul din secțiunea principală (nu din preview)
+                playGameWithAnimation();
+            }
+        });
+
+        // Funcție pentru a afișa un mesaj interesant despre joc
+        function showGameTip() {
+            const tips = [
+                "Pro tip: Coffee cups are worth 10 points!",
+                "Did you know? Croissants give 25 points!",
+                "Stars are rare but worth 50 points!",
+                "Avoid the skull items - they cost you a life!",
+                "Use power-ups to boost your score!"
+            ];
+            
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            
+            // Creăm un element pentru tooltip
+            const tipElement = document.createElement('div');
+            tipElement.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #00754a 0%, #1e3932 100%);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 1000;
+                max-width: 300px;
+                animation: slideInRight 0.5s ease-out;
+                border-left: 5px solid #FFD700;
+            `;
+            
+            tipElement.innerHTML = `
+                <div style="font-weight: bold; margin-bottom: 5px;">🎮 Game Tip:</div>
+                <div>${randomTip}</div>
+                <div style="text-align: right; margin-top: 10px; font-size: 12px; opacity: 0.8;">
+                    <a href="game.html" style="color: #d4e9e2; text-decoration: none;">
+                        <i class="fas fa-play"></i> Try it now
+                    </a>
+                </div>
+            `;
+            
+            // Adăugăm animația
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(tipElement);
+            
+            // Ascundem mesajul după 5 secunde
+            setTimeout(() => {
+                tipElement.style.animation = 'slideOutRight 0.5s ease-out forwards';
+                
+                // Adăugăm animația de ieșire
+                const exitStyle = document.createElement('style');
+                exitStyle.textContent = `
+                    @keyframes slideOutRight {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(exitStyle);
+                
+                setTimeout(() => tipElement.remove(), 500);
+            }, 5000);
+            
+            // Salvez că am afișat un sfat (ca să nu apară prea des)
+            localStorage.setItem('lastGameTip', Date.now());
+        }
+
+        // Afișează un sfat despre joc la fiecare 30 de minute
+        window.addEventListener('load', function() {
+            const lastTip = localStorage.getItem('lastGameTip');
+            const now = Date.now();
+            const thirtyMinutes = 30 * 60 * 1000; // 30 minute în milisecunde
+            
+            if (!lastTip || (now - lastTip) > thirtyMinutes) {
+                setTimeout(showGameTip, 3000); // Afișează după 3 secunde
+            }
         });
     </script>
 </body>

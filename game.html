@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbucks Coffee Catch Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .game-navbar {
+            background: rgba(30, 57, 50, 0.9);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .game-navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .game-brand a {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .game-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .game-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .game-menu a:hover {
+            color: #d4e9e2;
+        }
+        
+        .back-to-home {
+            background: #00754a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .back-to-home:hover {
+            background: #005c3c;
+            transform: translateY(-2px);
+        }
+        
+        .game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .game-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .game-header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #d4e9e2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .game-header p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #b8d8c8;
+        }
+        
+        /* Game Area */
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .game-board {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid rgba(212, 233, 226, 0.3);
+        }
+        
+        /* Game Stats */
+        .game-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: rgba(30, 57, 50, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            width: 800px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 15px 30px;
+            background: rgba(0, 117, 74, 0.3);
+            border-radius: 10px;
+            min-width: 150px;
+            border: 2px solid rgba(212, 233, 226, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #d4e9e2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Game Elements */
+        #player {
+            position: absolute;
+            bottom: 20px;
+            left: 375px;
+            width: 150px;
+            height: 80px;
+            background: linear-gradient(135deg, #00754a 0%, #1e3932 100%);
+            border-radius: 10px 10px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: left 0.1s linear;
+            border: 3px solid #d4e9e2;
+        }
+        
+        .falling-item {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            animation: fall linear forwards;
+        }
+        
+        .coffee-cup {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            border: 3px solid #654321;
+        }
+        
+        .croissant {
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            color: #8B4513;
+            border: 3px solid #B8860B;
+        }
+        
+        .star {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            border: 3px solid gold;
+        }
+        
+        .bad-item {
+            background: linear-gradient(135deg, #FF4444 0%, #CC0000 100%);
+            color: white;
+            border: 3px solid #990000;
+            font-size: 25px;
+        }
+        
+        /* Game Controls */
+        .game-controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .control-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .play-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+        }
+        
+        .pause-btn {
+            background: linear-gradient(135deg, #FF9800 0%, #EF6C00 100%);
+            color: white;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #2196F3 0%, #0D47A1 100%);
+            color: white;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .control-btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* Game Instructions */
+        .game-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid rgba(212, 233, 226, 0.3);
+        }
+        
+        .instructions-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #d4e9e2;
+            text-align: center;
+        }
+        
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(30, 57, 50, 0.5);
+            border-radius: 10px;
+        }
+        
+        .instruction-icon {
+            font-size: 30px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .instruction-text {
+            flex: 1;
+        }
+        
+        /* Power Ups */
+        .power-ups {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .power-up {
+            background: rgba(0, 117, 74, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 120px;
+            border: 2px solid rgba(212, 233, 226, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .power-up:hover {
+            background: rgba(0, 117, 74, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .power-up-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .power-up-cost {
+            color: #ffd700;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        /* Game Over Screen */
+        .game-over {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .game-over-content {
+            background: linear-gradient(135deg, #1e3932 0%, #00754a 100%);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 3px solid #d4e9e2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .game-over h2 {
+            font-size: 48px;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        
+        .final-score {
+            font-size: 72px;
+            font-weight: bold;
+            color: white;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .game-over-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        /* Animations */
+        @keyframes fall {
+            to {
+                transform: translateY(500px);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        /* Difficulty Levels */
+        .difficulty {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .difficulty-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(212, 233, 226, 0.3);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .difficulty-btn.active {
+            background: #00754a;
+            border-color: #d4e9e2;
+            box-shadow: 0 0 15px rgba(0, 117, 74, 0.5);
+        }
+        
+        .difficulty-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            .game-board, .game-stats {
+                width: 95%;
+                max-width: 700px;
+            }
+            
+            .game-board {
+                height: 400px;
+            }
+            
+            .game-stats {
+                flex-wrap: wrap;
+            }
+            
+            .stat-box {
+                min-width: 120px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .game-header h1 {
+                font-size: 36px;
+            }
+            
+            .game-header p {
+                font-size: 16px;
+            }
+            
+            .game-board {
+                height: 350px;
+            }
+            
+            #player {
+                width: 120px;
+                height: 60px;
+                font-size: 30px;
+            }
+            
+            .falling-item {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 200px;
+                justify-content: center;
+            }
+            
+            .instructions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-menu {
+                gap: 15px;
+                font-size: 14px;
+            }
+            
+            .game-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .stat-box {
+                width: 100%;
+            }
+        }
+        
+        /* Achievement Badges */
+        .achievements {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .achievement {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+            border: 2px solid rgba(212, 233, 226, 0.3);
+        }
+        
+        .achievement.locked {
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+        
+        .achievement-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .achievement:hover .achievement-tooltip {
+            display: block;
+        }
+        
+        /* Floating Stars Background */
+        .floating-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="game-navbar">
+        <div class="game-navbar-container">
+            <div class="game-brand">
+                <a href="index.html">
+                    <i class="fas fa-mug-hot"></i>
+                    <span>STARBUCKS GAME</span>
+                </a>
+            </div>
+            <ul class="game-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="game.html" style="color:#d4e9e2;">Play Game</a></li>
+            </ul>
+            <button class="back-to-home" onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i> Back to Home
+            </button>
+        </div>
+    </nav>
+
+    <!-- Game Container -->
+    <div class="game-container">
+        <!-- Game Header -->
+        <div class="game-header">
+            <h1>☕ Starbucks Coffee Catch</h1>
+            <p>Catch falling coffee cups and pastries to earn points. Avoid the bad items! Use arrow keys or mouse to move.</p>
+        </div>
+
+        <!-- Difficulty Selection -->
+        <div class="difficulty">
+            <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+            <button class="difficulty-btn" data-difficulty="insane">Insane</button>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <!-- Game Board -->
+            <div class="game-board" id="gameBoard">
+                <!-- Player -->
+                <div id="player">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <!-- Falling items will be added here by JavaScript -->
+            </div>
+
+            <!-- Game Stats -->
+            <div class="game-stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="score">0</div>
+                    <div class="stat-label">Score</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="lives">3</div>
+                    <div class="stat-label">Lives</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="level">1</div>
+                    <div class="stat-label">Level</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="highScore">0</div>
+                    <div class="stat-label">High Score</div>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="game-controls">
+                <button class="control-btn play-btn" id="playBtn">
+                    <i class="fas fa-play"></i> Start Game
+                </button>
+                <button class="control-btn pause-btn" id="pauseBtn">
+                    <i class="fas fa-pause"></i> Pause
+                </button>
+                <button class="control-btn reset-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i> Restart
+                </button>
+            </div>
+
+            <!-- Power Ups -->
+            <div class="power-ups">
+                <div class="power-up" id="slowPowerUp" onclick="buyPowerUp('slow')">
+                    <div class="power-up-icon">🐌</div>
+                    <div class="power-up-name">Slow Motion</div>
+                    <div class="power-up-cost">100 pts</div>
+                </div>
+                <div class="power-up" id="doublePowerUp" onclick="buyPowerUp('double')">
+                    <div class="power-up-icon">✌️</div>
+                    <div class="power-up-name">Double Points</div>
+                    <div class="power-up-cost">200 pts</div>
+                </div>
+                <div class="power-up" id="shieldPowerUp" onclick="buyPowerUp('shield')">
+                    <div class="power-up-icon">🛡️</div>
+                    <div class="power-up-name">Extra Life</div>
+                    <div class="power-up-cost">300 pts</div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="achievements">
+                <div class="achievement" id="achievement100">
+                    <span>🥉</span>
+                    <div class="achievement-tooltip">Score 100 Points</div>
+                </div>
+                <div class="achievement locked" id="achievement500">
+                    <span>🥈</span>
+                    <div class="achievement-tooltip">Score 500 Points</div>
+                </div>
+                <div class="achievement locked" id="achievement1000">
+                    <span>🥇</span>
+                    <div class="achievement-tooltip">Score 1000 Points</div>
+                </div>
+                <div class="achievement locked" id="achievementNoMiss">
+                    <span>⭐</span>
+                    <div class="achievement-tooltip">Complete Level Without Missing</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Instructions -->
+        <div class="game-instructions">
+            <h3 class="instructions-title">How to Play</h3>
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <div class="instruction-icon" style="background: rgba(139, 69, 19, 0.3);">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Coffee Cup:</strong> +10 points
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon" style="background: rgba(255, 215, 0, 0.3);">
+                        <i class="fas fa-cookie-bite"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Croissant:</strong> +25 points
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon" style="background: rgba(255, 215, 0, 0.3);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Star:</strong> +50 points
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon" style="background: rgba(255, 68, 68, 0.3);">
+                        <i class="fas fa-skull-crossbones"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Bad Item:</strong> -1 life
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px; color: #d4e9e2;">
+                <p><i class="fas fa-keyboard"></i> Use <strong>Arrow Keys</strong> or <strong>Mouse</strong> to move</p>
+                <p><i class="fas fa-gamepad"></i> Collect items and avoid bad ones to score points!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div class="game-over" id="gameOver">
+        <div class="game-over-content">
+            <h2>Game Over!</h2>
+            <div class="final-score" id="finalScore">0</div>
+            <p style="margin-bottom: 20px; font-size: 18px; color: #d4e9e2;">
+                <span id="finalMessage">Great effort! Try again!</span>
+            </p>
+            <div class="game-over-buttons">
+                <button class="control-btn play-btn" onclick="restartGame()">
+                    <i class="fas fa-redo"></i> Play Again
+                </button>
+                <button class="control-btn reset-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-home"></i> Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Stars Background -->
+    <div class="floating-stars" id="floatingStars"></div>
+
+    <script>
+        // Game Variables
+        let game = {
+            score: 0,
+            lives: 3,
+            level: 1,
+            highScore: localStorage.getItem('starbucksGameHighScore') || 0,
+            isPlaying: false,
+            isPaused: false,
+            gameSpeed: 2,
+            difficulty: 'easy',
+            items: [],
+            interval: null,
+            powerUps: {
+                slow: false,
+                double: false,
+                shield: false
+            },
+            achievements: {
+                score100: false,
+                score500: false,
+                score1000: false,
+                perfectLevel: false
+            }
+        };
+
+        // DOM Elements
+        const gameBoard = document.getElementById('gameBoard');
+        const player = document.getElementById('player');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const levelElement = document.getElementById('level');
+        const highScoreElement = document.getElementById('highScore');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const gameOverScreen = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
+        const finalMessageElement = document.getElementById('finalMessage');
+
+        // Initialize the game
+        function initGame() {
+            console.log('🎮 Starbucks Coffee Catch Game Loaded');
+            
+            // Set high score
+            highScoreElement.textContent = game.highScore;
+            
+            // Create floating stars background
+            createFloatingStars();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Initialize achievements from localStorage
+            loadAchievements();
+            
+            // Start with game paused
+            pauseGame();
+        }
+
+        // Create floating stars background
+        function createFloatingStars() {
+            const starsContainer = document.getElementById('floatingStars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-particle';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.opacity = Math.random() * 0.5 + 0.5;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Keyboard controls
+            document.addEventListener('keydown', handleKeyPress);
+            
+            // Mouse controls
+            gameBoard.addEventListener('mousemove', handleMouseMove);
+            
+            // Touch controls for mobile
+            gameBoard.addEventListener('touchmove', handleTouchMove);
+            
+            // Button clicks
+            playBtn.addEventListener('click', togglePlayPause);
+            pauseBtn.addEventListener('click', togglePlayPause);
+            resetBtn.addEventListener('click', resetGame);
+            
+            // Difficulty buttons
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setDifficulty(this.dataset.difficulty);
+                });
+            });
+            
+            // Prevent context menu on game board
+            gameBoard.addEventListener('contextmenu', e => e.preventDefault());
+        }
+
+        // Handle keyboard controls
+        function handleKeyPress(e) {
+            if (!game.isPlaying || game.isPaused) return;
+            
+            const playerRect = player.getBoundingClientRect();
+            const boardRect = gameBoard.getBoundingClientRect();
+            const playerLeft = playerRect.left - boardRect.left;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    if (playerLeft > 0) {
+                        player.style.left = `${playerLeft - 20}px`;
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (playerLeft < gameBoard.offsetWidth - player.offsetWidth) {
+                        player.style.left = `${playerLeft + 20}px`;
+                    }
+                    break;
+                case ' ':
+                    togglePlayPause();
+                    break;
+            }
+        }
+
+        // Handle mouse controls
+        function handleMouseMove(e) {
+            if (!game.isPlaying || game.isPaused) return;
+            
+            const boardRect = gameBoard.getBoundingClientRect();
+            let mouseX = e.clientX - boardRect.left;
+            
+            // Constrain player within board
+            mouseX = Math.max(0, Math.min(mouseX, boardRect.width - player.offsetWidth));
+            
+            player.style.left = `${mouseX}px`;
+        }
+
+        // Handle touch controls
+        function handleTouchMove(e) {
+            if (!game.isPlaying || game.isPaused) return;
+            
+            e.preventDefault();
+            const touch = e.touches[0];
+            const boardRect = gameBoard.getBoundingClientRect();
+            let touchX = touch.clientX - boardRect.left;
+            
+            // Constrain player within board
+            touchX = Math.max(0, Math.min(touchX, boardRect.width - player.offsetWidth));
+            
+            player.style.left = `${touchX}px`;
+        }
+
+        // Toggle play/pause
+        function togglePlayPause() {
+            if (!game.isPlaying) {
+                startGame();
+            } else if (game.isPaused) {
+                resumeGame();
+            } else {
+                pauseGame();
+            }
+        }
+
+        // Start the game
+        function startGame() {
+            game.isPlaying = true;
+            game.isPaused = false;
+            
+            // Update button text
+            playBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+            
+            // Start game loop
+            game.interval = setInterval(gameLoop, 16); // ~60 FPS
+            
+            // Start generating items
+            startItemGeneration();
+            
+            console.log('Game started!');
+        }
+
+        // Pause the game
+        function pauseGame() {
+            game.isPaused = true;
+            
+            // Update button text
+            playBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+            
+            console.log('Game paused');
+        }
+
+        // Resume the game
+        function resumeGame() {
+            game.isPaused = false;
+            
+            // Update button text
+            playBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+            
+            console.log('Game resumed');
+        }
+
+        // Reset the game
+        function resetGame() {
+            // Clear intervals
+            clearInterval(game.interval);
+            
+            // Reset game state
+            game.score = 0;
+            game.lives = 3;
+            game.level = 1;
+            game.isPlaying = false;
+            game.isPaused = false;
+            game.items = [];
+            game.powerUps = {
+                slow: false,
+                double: false,
+                shield: false
+            };
+            
+            // Reset speed based on difficulty
+            updateGameSpeed();
+            
+            // Clear all items from board
+            document.querySelectorAll('.falling-item').forEach(item => item.remove());
+            
+            // Reset UI
+            scoreElement.textContent = '0';
+            livesElement.textContent = '3';
+            levelElement.textContent = '1';
+            
+            // Hide game over screen
+            gameOverScreen.style.display = 'none';
+            
+            // Reset player position
+            player.style.left = `${gameBoard.offsetWidth / 2 - player.offsetWidth / 2}px`;
+            
+            // Update button text
+            playBtn.innerHTML = '<i class="fas fa-play"></i> Start Game';
+            
+            console.log('Game reset');
+        }
+
+        // Set difficulty level
+        function setDifficulty(level) {
+            game.difficulty = level;
+            
+            // Update UI
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-difficulty="${level}"]`).classList.add('active');
+            
+            // Update game speed
+            updateGameSpeed();
+            
+            console.log(`Difficulty set to: ${level}`);
+        }
+
+        // Update game speed based on difficulty
+        function updateGameSpeed() {
+            switch(game.difficulty) {
+                case 'easy':
+                    game.gameSpeed = 2;
+                    break;
+                case 'medium':
+                    game.gameSpeed = 3;
+                    break;
+                case 'hard':
+                    game.gameSpeed = 4;
+                    break;
+                case 'insane':
+                    game.gameSpeed = 6;
+                    break;
+            }
+        }
+
+        // Start generating items
+        function startItemGeneration() {
+            if (game.itemGenerationInterval) {
+                clearInterval(game.itemGenerationInterval);
+            }
+            
+            game.itemGenerationInterval = setInterval(() => {
+                if (!game.isPaused && game.isPlaying) {
+                    createFallingItem();
+                }
+            }, 1000 - (game.level * 100)); // Faster as levels increase
+        }
+
+        // Create a falling item
+        function createFallingItem() {
+            const itemTypes = [
+                { class: 'coffee-cup', icon: 'fas fa-mug-hot', points: 10, chance: 40 },
+                { class: 'croissant', icon: 'fas fa-cookie-bite', points: 25, chance: 30 },
+                { class: 'star', icon: 'fas fa-star', points: 50, chance: 15 },
+                { class: 'bad-item', icon: 'fas fa-skull-crossbones', points: -1, chance: 15 }
+            ];
+            
+            // Calculate total chance
+            const totalChance = itemTypes.reduce((sum, item) => sum + item.chance, 0);
+            let random = Math.random() * totalChance;
+            
+            // Select item based on chance
+            let selectedItem;
+            for (const item of itemTypes) {
+                if (random < item.chance) {
+                    selectedItem = item;
+                    break;
+                }
+                random -= item.chance;
+            }
+            
+            // Create item element
+            const item = document.createElement('div');
+            item.className = `falling-item ${selectedItem.class}`;
+            item.innerHTML = `<i class="${selectedItem.icon}"></i>`;
+            
+            // Set random position
+            const maxX = gameBoard.offsetWidth - 60;
+            item.style.left = `${Math.random() * maxX}px`;
+            item.style.top = '-60px';
+            
+            // Store item data
+            item.dataset.points = selectedItem.points;
+            item.dataset.type = selectedItem.class;
+            
+            // Add to game board
+            gameBoard.appendChild(item);
+            
+            // Store in items array
+            game.items.push({
+                element: item,
+                y: -60,
+                speed: game.gameSpeed + Math.random() * 2,
+                points: selectedItem.points,
+                type: selectedItem.class
+            });
+        }
+
+        // Main game loop
+        function gameLoop() {
+            if (game.isPaused) return;
+            
+            // Update all items
+            game.items = game.items.filter(itemData => {
+                const item = itemData.element;
+                
+                // Update position
+                itemData.y += itemData.speed;
+                item.style.top = `${itemData.y}px`;
+                
+                // Check if item reached bottom
+                if (itemData.y > gameBoard.offsetHeight) {
+                    item.remove();
+                    
+                    // If it was a good item and player missed it
+                    if (itemData.points > 0) {
+                        // Optional: deduct points for missing good items
+                        // updateScore(-5);
+                    }
+                    
+                    return false; // Remove from array
+                }
+                
+                // Check collision with player
+                if (checkCollision(player, item)) {
+                    handleItemCollision(itemData);
+                    return false; // Remove from array
+                }
+                
+                return true; // Keep in array
+            });
+            
+            // Check for level up
+            checkLevelUp();
+        }
+
+        // Check collision between two elements
+        function checkCollision(el1, el2) {
+            const rect1 = el1.getBoundingClientRect();
+            const rect2 = el2.getBoundingClientRect();
+            
+            return !(
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right ||
+                rect1.bottom < rect2.top ||
+                rect1.top > rect2.bottom
+            );
+        }
+
+        // Handle item collision
+        function handleItemCollision(itemData) {
+            const item = itemData.element;
+            
+            // Remove item
+            item.remove();
+            
+            // Handle based on item type
+            if (itemData.points > 0) {
+                // Good item
+                let points = itemData.points;
+                
+                // Double points power-up
+                if (game.powerUps.double) {
+                    points *= 2;
+                }
+                
+                updateScore(points);
+                
+                // Show points popup
+                showPointsPopup(points, item);
+                
+                // Visual feedback
+                player.classList.add('pulse');
+                setTimeout(() => player.classList.remove('pulse'), 300);
+                
+                // Play sound effect (in a real game)
+                playSound('collect');
+            } else {
+                // Bad item
+                if (!game.powerUps.shield) {
+                    updateLives(-1);
+                    
+                    // Visual feedback
+                    player.classList.add('shake');
+                    setTimeout(() => player.classList.remove('shake'), 500);
+                    
+                    // Play sound effect (in a real game)
+                    playSound('hit');
+                    
+                    // Check game over
+                    if (game.lives <= 0) {
+                        gameOver();
+                    }
+                } else {
+                    // Shield protected from bad item
+                    game.powerUps.shield = false;
+                    showShieldEffect();
+                }
+            }
+            
+            // Check achievements
+            checkAchievements();
+        }
+
+        // Update score
+        function updateScore(points) {
+            game.score += points;
+            scoreElement.textContent = game.score;
+            
+            // Update high score if needed
+            if (game.score > game.highScore) {
+                game.highScore = game.score;
+                highScoreElement.textContent = game.highScore;
+                localStorage.setItem('starbucksGameHighScore', game.highScore);
+            }
+            
+            // Animate score change
+            scoreElement.classList.add('pulse');
+            setTimeout(() => scoreElement.classList.remove('pulse'), 300);
+        }
+
+        // Update lives
+        function updateLives(change) {
+            game.lives += change;
+            livesElement.textContent = game.lives;
+            
+            // Animate lives change
+            livesElement.classList.add('pulse');
+            setTimeout(() => livesElement.classList.remove('pulse'), 300);
+        }
+
+        // Check for level up
+        function checkLevelUp() {
+            const oldLevel = game.level;
+            game.level = Math.floor(game.score / 100) + 1;
+            
+            if (game.level > oldLevel) {
+                levelElement.textContent = game.level;
+                
+                // Show level up message
+                showLevelUp();
+                
+                // Increase game speed slightly
+                game.gameSpeed += 0.2;
+            }
+        }
+
+        // Show points popup
+        function showPointsPopup(points, item) {
+            const popup = document.createElement('div');
+            popup.className = 'points-popup';
+            popup.textContent = `+${points}`;
+            popup.style.position = 'absolute';
+            popup.style.left = `${item.offsetLeft}px`;
+            popup.style.top = `${item.offsetTop}px`;
+            popup.style.color = points >= 50 ? '#FFD700' : '#4CAF50';
+            popup.style.fontSize = '24px';
+            popup.style.fontWeight = 'bold';
+            popup.style.textShadow = '2px 2px 4px rgba(0,0,0,0.5)';
+            popup.style.zIndex = '100';
+            popup.style.animation = 'floatUp 1s ease-out forwards';
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatUp {
+                    0% { transform: translateY(0); opacity: 1; }
+                    100% { transform: translateY(-50px); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            gameBoard.appendChild(popup);
+            setTimeout(() => popup.remove(), 1000);
+        }
+
+        // Show level up message
+        function showLevelUp() {
+            const message = document.createElement('div');
+            message.className = 'level-up-message';
+            message.innerHTML = `
+                <div style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(0, 117, 74, 0.9);
+                    color: white;
+                    padding: 20px 40px;
+                    border-radius: 15px;
+                    font-size: 32px;
+                    font-weight: bold;
+                    z-index: 1000;
+                    border: 3px solid #FFD700;
+                    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+                    text-align: center;
+                ">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🎉</div>
+                    LEVEL ${game.level}!
+                </div>
+            `;
+            
+            gameBoard.appendChild(message);
+            setTimeout(() => message.remove(), 2000);
+        }
+
+        // Show shield effect
+        function showShieldEffect() {
+            const shield = document.createElement('div');
+            shield.className = 'shield-effect';
+            shield.innerHTML = `
+                <div style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 200px;
+                    height: 100px;
+                    border: 5px solid rgba(0, 150, 255, 0.7);
+                    border-radius: 50px;
+                    box-shadow: 0 0 30px rgba(0, 150, 255, 0.7);
+                    z-index: 500;
+                    animation: shieldPulse 0.5s ease-out;
+                "></div>
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shieldPulse {
+                    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            player.appendChild(shield);
+            setTimeout(() => shield.remove(), 500);
+        }
+
+        // Buy power-up
+        function buyPowerUp(type) {
+            const costs = {
+                slow: 100,
+                double: 200,
+                shield: 300
+            };
+            
+            if (game.score >= costs[type] && !game.powerUps[type]) {
+                game.score -= costs[type];
+                scoreElement.textContent = game.score;
+                
+                game.powerUps[type] = true;
+                
+                // Visual feedback
+                const powerUpElement = document.getElementById(`${type}PowerUp`);
+                powerUpElement.style.background = 'rgba(76, 175, 80, 0.5)';
+                powerUpElement.style.borderColor = '#4CAF50';
+                
+                // Show purchase message
+                alert(`Power-up purchased: ${type.toUpperCase()}!`);
+                
+                // Power-up duration
+                setTimeout(() => {
+                    game.powerUps[type] = false;
+                    powerUpElement.style.background = 'rgba(0, 117, 74, 0.3)';
+                    powerUpElement.style.borderColor = 'rgba(212, 233, 226, 0.2)';
+                }, 10000); // 10 seconds
+            } else {
+                // Not enough points or already active
+                alert(game.powerUps[type] 
+                    ? 'Power-up already active!' 
+                    : `Not enough points! Need ${costs[type]} points.`);
+            }
+        }
+
+        // Check achievements
+        function checkAchievements() {
+            // Score achievements
+            if (!game.achievements.score100 && game.score >= 100) {
+                unlockAchievement('score100');
+            }
+            if (!game.achievements.score500 && game.score >= 500) {
+                unlockAchievement('score500');
+            }
+            if (!game.achievements.score1000 && game.score >= 1000) {
+                unlockAchievement('score1000');
+            }
+        }
+
+        // Unlock achievement
+        function unlockAchievement(achievementId) {
+            game.achievements[achievementId] = true;
+            
+            const achievementElement = document.getElementById(`achievement${achievementId.charAt(0).toUpperCase() + achievementId.slice(1)}`);
+            if (achievementElement) {
+                achievementElement.classList.remove('locked');
+                
+                // Show achievement notification
+                showAchievementNotification(achievementId);
+                
+                // Save to localStorage
+                saveAchievements();
+            }
+        }
+
+        // Show achievement notification
+        function showAchievementNotification(achievementId) {
+            const messages = {
+                score100: 'Bronze Medal: Scored 100 points!',
+                score500: 'Silver Medal: Scored 500 points!',
+                score1000: 'Gold Medal: Scored 1000 points!',
+                noMiss: 'Perfect Level: Completed level without missing!'
+            };
+            
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+                    color: #1e3932;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    font-weight: bold;
+                    z-index: 2000;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                    animation: slideIn 0.5s ease-out;
+                    border: 2px solid gold;
+                ">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🏆</div>
+                    ${messages[achievementId]}
+                </div>
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Save achievements to localStorage
+        function saveAchievements() {
+            localStorage.setItem('starbucksGameAchievements', JSON.stringify(game.achievements));
+        }
+
+        // Load achievements from localStorage
+        function loadAchievements() {
+            const saved = localStorage.getItem('starbucksGameAchievements');
+            if (saved) {
+                game.achievements = JSON.parse(saved);
+                
+                // Update UI
+                Object.keys(game.achievements).forEach(achievementId => {
+                    if (game.achievements[achievementId]) {
+                        const element = document.getElementById(`achievement${achievementId.charAt(0).toUpperCase() + achievementId.slice(1)}`);
+                        if (element) {
+                            element.classList.remove('locked');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Play sound (placeholder - in a real game, use actual audio files)
+        function playSound(soundName) {
+            // This is a placeholder - in a real game, you would play actual audio
+            console.log(`Playing sound: ${soundName}`);
+            
+            // Example of how to play sounds in a real implementation:
+            /*
+            const sounds = {
+                collect: new Audio('sounds/collect.mp3'),
+                hit: new Audio('sounds/hit.mp3'),
+                levelUp: new Audio('sounds/level-up.mp3')
+            };
+            
+            if (sounds[soundName]) {
+                sounds[soundName].currentTime = 0;
+                sounds[soundName].play();
+            }
+            */
+        }
+
+        // Game over
+        function gameOver() {
+            game.isPlaying = false;
+            clearInterval(game.interval);
+            clearInterval(game.itemGenerationInterval);
+            
+            // Update final score
+            finalScoreElement.textContent = game.score;
+            
+            // Set final message
+            let message = '';
+            if (game.score > 500) {
+                message = 'Amazing! You\'re a Starbucks Master!';
+            } else if (game.score > 200) {
+                message = 'Great job! Keep practicing!';
+            } else {
+                message = 'Good effort! Try again to beat your score!';
+            }
+            finalMessageElement.textContent = message;
+            
+            // Show game over screen
+            gameOverScreen.style.display = 'flex';
+        }
+
+        // Restart game (from game over screen)
+        function restartGame() {
+            gameOverScreen.style.display = 'none';
+            resetGame();
+            startGame();
+        }
+
+        // Initialize the game when page loads
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
